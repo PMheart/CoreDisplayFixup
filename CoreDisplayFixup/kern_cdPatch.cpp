@@ -12,6 +12,8 @@
 // bin-patch section start
 
 // for all supported versions (10.10.x, 10.11.x, 10.12.x)
+// the patch is from https://github.com/Floris497/mac-pixel-clock-patch-v2 , thanks to Floris497!
+
 //
 // mov 0x1, eax | test 0x1, cl | jne 0x15189 (don't care for the offset!)
 //

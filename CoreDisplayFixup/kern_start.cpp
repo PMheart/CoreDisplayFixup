@@ -20,7 +20,7 @@ void cdFixupStart() {
     
     DBGLOG("cdf @ calling Lilu for determining target Kernel Major Version: %d", kernMajorVer);
     
-    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan) // 10.10.x and 10.11.x
+    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan) // 10.10.x or 10.11.x
         lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));      // Lilu called
     else // 10.12.x
           lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));    // Lilu called
