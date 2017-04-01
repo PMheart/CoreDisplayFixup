@@ -31,8 +31,8 @@ extern size_t ADDPR(procInfoSize);
 
 enum : UINT32 {
     SectionUnused = 0,  // 0 means aborting patch
-	SectionYosEC  = 1,
-	SectionSie    = 2
+    SectionYosEC  = 1,
+    SectionSie    = 2
 };
 
 // Section list end
