@@ -17,12 +17,12 @@
 //
 // mov 0x1, eax | test 0x1, cl | jne 0x15189 (don't care for the offset!)
 //
-UINT8 displayKBEYosECSieSearch[]  = { 0xB8, 0x01, 0x00, 0x00, 0x00, 0xF6, 0xC1, 0x01, 0x0F, 0x85 };
+const UINT8 KBEYosECSieSearch[]  = { 0xB8, 0x01, 0x00, 0x00, 0x00, 0xF6, 0xC1, 0x01, 0x0F, 0x85 };
 
 //
 // xor eax, eax | 7x nop       | jmp 0x15189 (don't care for the offset!)
 //
-UINT8 displayKBEYosECSieReplace[] = { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xE9 };
+const UINT8 KBEYosECSieReplace[] = { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xE9 };
 
 // bin-patch section end
 
@@ -30,7 +30,7 @@ UINT8 displayKBEYosECSieReplace[] = { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 
 // Patch section start
 
 UserPatcher::BinaryModPatch genericPatch[] {
-	{ CPU_TYPE_X86_64, displayKBEYosECSieSearch, displayKBEYosECSieReplace, 10, 0, 1, UserPatcher::FileSegment::SegmentTextText, SectionYosEC }   // 10.10.5 till 10.12.x
+    { CPU_TYPE_X86_64, KBEYosECSieSearch, KBEYosECSieReplace, 10, 0, 1, UserPatcher::FileSegment::SegmentTextText, SectionYosEC }   // 10.10.5 till 10.12.x
 };
 
 // Patch section end
@@ -46,8 +46,7 @@ UserPatcher::BinaryModInfo ADDPR(binaryModSie)[] {
 	 { "/System/Library/Frameworks/CoreDisplay.framework/Versions/A/CoreDisplay", genericPatch, 1 }
 };
 
-
-size_t ADDPR(binaryModSize) {1};
+const size_t ADDPR(binaryModSize) {1};
 
 // Mod section end
 
@@ -62,7 +61,7 @@ UserPatcher::ProcInfo ADDPR(procInfoSie)[] {
 	{ "/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer", 86, SectionSie }
 };
 
-size_t ADDPR(procInfoSize) {1};
+const size_t ADDPR(procInfoSize) {1};
 
 // Process list end
 

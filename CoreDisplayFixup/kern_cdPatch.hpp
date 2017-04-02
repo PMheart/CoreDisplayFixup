@@ -17,14 +17,14 @@ typedef uint32_t UINT32;
 //
 extern UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[];  // 10.10.x and 10.11.x
 extern UserPatcher::BinaryModInfo ADDPR(binaryModSie)[];    // 10.12.x
-extern size_t ADDPR(binaryModSize);
+extern const size_t ADDPR(binaryModSize);
 
 //
 // What are the related process(es)?
 //
 extern UserPatcher::ProcInfo ADDPR(procInfoYosEC)[];        // 10.10.x and 10.11.x
 extern UserPatcher::ProcInfo ADDPR(procInfoSie)[];          // 10.12.x
-extern size_t ADDPR(procInfoSize);
+extern const size_t ADDPR(procInfoSize);
 
 
 // Section list start
