@@ -1,28 +1,20 @@
 //
-//  kern_cdPatch.cpp
-//  CoreDisplayFixup
+//    kern_cdPatch.cpp
+//    CoreDisplayFixup
 //
-//  Copyright © 2017 vit9696, Vanilla. All rights reserved.
+//    Created by Vanilla on 3/26/17.
+//    Copyright © 2017 vit9696, Vanilla. All rights reserved.
 //
-// This kext is made based on vit9696's Shiki, without his amazing repo it won't be here!
+//
+//    This kext is made based on vit9696's Shiki, without his amazing repo the repo won't be here!
 //
 
 #include "kern_cdPatch.hpp"
 
 // bin-patch section start
 
-// for all supported versions (10.10.x, 10.11.x, 10.12.x)
-// the patch is from https://github.com/Floris497/mac-pixel-clock-patch-v2 , thanks to Floris497!
-
-//
-// mov 0x1, eax | test 0x1, cl | jne 0x15189 (don't care for the offset!)
-//
-const UINT8 KBEYosECSieSearch[]  = { 0xB8, 0x01, 0x00, 0x00, 0x00, 0xF6, 0xC1, 0x01, 0x0F, 0x85 };
-
-//
-// xor eax, eax | 7x nop       | jmp 0x15189 (don't care for the offset!)
-//
-const UINT8 KBEYosECSieReplace[] = { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xE9 };
+const uint8_t searchBuf[] { 0xB8, 0x01, 0x00, 0x00, 0x00, 0xF6, 0xC1, 0x01, 0x0F, 0x85 };  // mov 0x1, eax | test 0x1, cl | jne 0x15189
+const uint8_t replaceBuf[] { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xE9 }; // xor eax, eax | 7x nop | jmp 0x15189
 
 // bin-patch section end
 
@@ -30,7 +22,7 @@ const UINT8 KBEYosECSieReplace[] = { 0x33, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90, 0
 // Patch section start
 
 UserPatcher::BinaryModPatch genericPatch[] {
-    { CPU_TYPE_X86_64, KBEYosECSieSearch, KBEYosECSieReplace, 10, 0, 1, UserPatcher::FileSegment::SegmentTextText, SectionYosEC }   // 10.10.5 till 10.12.x
+	{ CPU_TYPE_X86_64, searchBuf, replaceBuf, 10, 0, 1, UserPatcher::FileSegment::SegmentTextText, SectionYosemite },   // 10.10.5 till 10.12.x
 };
 
 // Patch section end
@@ -38,13 +30,18 @@ UserPatcher::BinaryModPatch genericPatch[] {
 
 // Mod section start
 
-UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {
-	{ "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit", genericPatch, 1 }
+UserPatcher::BinaryModInfo ADDPR(binaryModYosemite)[] {
+    { "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit", genericPatch, 1 },
 };
 
-UserPatcher::BinaryModInfo ADDPR(binaryModSie)[] {
-	 { "/System/Library/Frameworks/CoreDisplay.framework/Versions/A/CoreDisplay", genericPatch, 1 }
+UserPatcher::BinaryModInfo ADDPR(binaryModCapitan)[] {
+    { "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit", genericPatch, 1 },
 };
+
+UserPatcher::BinaryModInfo ADDPR(binaryModSierra)[] {
+    { "/System/Library/Frameworks/CoreDisplay.framework/Versions/A/CoreDisplay", genericPatch, 1 },
+};
+
 
 const size_t ADDPR(binaryModSize) {1};
 
@@ -53,12 +50,16 @@ const size_t ADDPR(binaryModSize) {1};
 
 // Process list start
 
-UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
-	{ "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer", 83, SectionYosEC }
+UserPatcher::ProcInfo ADDPR(procInfoYosemite)[] {
+    { "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer", 83, SectionYosemite }
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSie)[] {
-	{ "/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer", 86, SectionSie }
+UserPatcher::ProcInfo ADDPR(procInfoCapitan)[] {
+    { "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer", 83, SectionCapitan }
+};
+
+UserPatcher::ProcInfo ADDPR(procInfoSierra)[] {
+    { "/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer", 86, SectionSierra }
 };
 
 const size_t ADDPR(procInfoSize) {1};
