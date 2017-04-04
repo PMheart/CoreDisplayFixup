@@ -1,57 +1,170 @@
 //
-//    kern_start.cpp
-//    CoreDisplayFixup
+//  kern_start.cpp
+//  CoreDisplayFixup
 //
-//    Created by Vanilla on 3/26/17.
-//    Copyright © 2017 vit9696, Vanilla. All rights reserved.
+//  Copyright © 2017 vit9696, Vanilla. All rights reserved.
 //
-//    This kext is made based on vit9696's Shiki, without his amazing repo the repo won't be here!
+//  This kext is made based on vit9696's Shiki, without his amazing repo it won't be here!
 //
 
+//
+// Lilu::Headers
+//
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
+
+//
+// CoreDisplayFixup::Headers
+//
 #include "kern_cdPatch.hpp"
 
-void cdFixupStart() {
-    DBGLOG("cdf @ loaded");
-  
-    // temp workaround of lack of OS Dependency
+
+//
+// The version of this kext.
+//
+#define kextVer "1.2.1"
+
+
+//
+// The main function of this kext.
+//
+void main()
+{
+    //
+    // The temporary workaround of lack of OS Dependency feature in <Headers/kern_user.hpp>,
+    // patching the target framework(s) based on darwin version.
+    //
+    // Cons:
+    //   * The patch(es) can be catastrophic once there will be different patches in the same major version.
+    //   * More things are to be updated.
+    //
     KernelVersion kernMajorVer = getKernelVersion();
     
-    DBGLOG("cdf @ calling Lilu for determining target Kernel Major Version: %d", kernMajorVer);
+    //
+    // Notes:
+    //   * SYSLOG("Message"); will print "<Plug-in name>: Message".
+    //   * DBGLOG("Message"); will print "<Plug-in name>: (DEBUG) Message".
+    //
+    SYSLOG("Version %s loaded. Copyright (c) 2017 vit9696, Vanilla. All rights reserved.", kextVer);
     
+    //
+    // Patch(es) for Yosemite. (10.10, Darwin 14)
+    //
     if (kernMajorVer == KernelVersion::Yosemite)
-        lilu.onProcLoad(ADDPR(procInfoYosemite), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosemite), ADDPR(binaryModSize));
-    else if (kernMajorVer == KernelVersion::ElCapitan)
-          lilu.onProcLoad(ADDPR(procInfoCapitan), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModCapitan), ADDPR(binaryModSize));
-    else
-          lilu.onProcLoad(ADDPR(procInfoSierra), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSierra), ADDPR(binaryModSize));
+    {
+        lilu.onProcLoad
+        (
+            ADDPR(procInfoYosemite),
+            ADDPR(procInfoSize),
+            nullptr,
+            nullptr,
+            ADDPR(binaryModYosemite),
+            ADDPR(binaryModSize)
+        );
+        
+        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+    }
+    
+    //
+    // Patch(es) for El Capitan. (10.11, Darwin 15)
+    //
+    if (kernMajorVer == KernelVersion::ElCapitan)
+    {
+        lilu.onProcLoad
+        (
+            ADDPR(procInfoCapitan),
+            ADDPR(procInfoSize),
+            nullptr,
+            nullptr,
+            ADDPR(binaryModCapitan),
+            ADDPR(binaryModSize)
+        );
+        
+        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+    }
+    
+    //
+    // Patch(es) for Sierra. (10.12, Darwin 16)
+    //
+    if (kernMajorVer == KernelVersion::Sierra)
+    {
+        lilu.onProcLoad
+        (
+            ADDPR(procInfoSierra),
+            ADDPR(procInfoSize),
+            nullptr,
+            nullptr,
+            ADDPR(binaryModSierra),
+            ADDPR(binaryModSize)
+        );
+        
+        DBGLOG("CoreDisplay 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+    }
 }
 
-const char *bootargOff[] {
+//
+// Boot argument to unload this kext.
+//
+const char *bootargOff[]
+{
     "-cdfoff"
 };
 
-const char *bootargDebug[] {
+//
+// Boot argument to enable debug logging of this kext. [ DBGLOG("Message"); // will be called]
+//
+const char *bootargDebug[]
+{
     "-cdfdbg"
 };
 
-const char *bootargBeta[] {
+//
+// Boot argument to load this kext on an unsupported darwin version.
+//
+const char *bootargBeta[]
+{
     "-cdfbeta"
 };
 
-PluginConfiguration ADDPR(config) {
+//
+// Start calling Lilu. (Check <Headers/plugin_start.hpp>)
+//
+PluginConfiguration ADDPR(config)
+{
+    //
+    // The name of the Lilu plug-in (CoreDisplayFixup here).
+    //
     xStringify(PRODUCT_NAME),
-    parseModuleVersion(xStringify(MODULE_VERSION)),     // for Lilu 1.1.0 and above
+    //
+    // For Lilu 1.1.0 and above, comment out this will bring the compatibility of older Lilu (1.0.0)
+    //
+    parseModuleVersion(xStringify(MODULE_VERSION)),
+    //
+    // Check whether unloading argument(s) is (are) used.
+    //
     bootargOff,
     sizeof(bootargOff)/sizeof(bootargOff[0]),
+    //
+    // Check whether debugging argument(s) is (are) used.
+    //
     bootargDebug,
     sizeof(bootargDebug)/sizeof(bootargDebug[0]),
+    //
+    // Check whether enforcing argument(s) is (are) used.
+    //
     bootargBeta,
     sizeof(bootargBeta)/sizeof(bootargBeta[0]),
-    
-    KernelVersion::Yosemite,       // minKernel - 10.10.x (darwin 14)
-    KernelVersion::Sierra,         // maxKernel - 10.12.x (darwin 16)
-    cdFixupStart
+    //
+    // The minimum darwin version to load this kext. (Should be 10.10 - darwin 14.)
+    //
+    KernelVersion::Yosemite,
+    //
+    // The maximum darwin version to load this kext. (Should be 10.12 - darwin 16.)
+    //
+    KernelVersion::Sierra,
+    //
+    // Start calling the function main() of this kext.
+    //
+    main
 };

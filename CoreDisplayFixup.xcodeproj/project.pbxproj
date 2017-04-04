@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BA0FDB1E87C89F00D2F884 /* kern_cdPatch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = kern_cdPatch.hpp; sourceTree = "<group>"; };
+		83BA0FDB1E87C89F00D2F884 /* kern_cdPatch.hpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_cdPatch.hpp; sourceTree = "<group>"; tabWidth = 4; };
 		83BA0FDD1E87C89F00D2F884 /* kern_cdPatch.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_cdPatch.cpp; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
 		83BA0FDF1E87C89F00D2F884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
@@ -64,38 +64,36 @@
 		83BA0FCE1E87C89F00D2F884 = {
 			isa = PBXGroup;
 			children = (
-				83BA0FE71E87C98D00D2F884 /* SDKs */,
-				83BA0FDA1E87C89F00D2F884 /* CoreDisplayFixup */,
-				83BA0FD91E87C89F00D2F884 /* Products */,
+				83BA0FE71E87C98D00D2F884 /* APIs */,
+				83BA0FDA1E87C89F00D2F884 /* Source */,
+				83BA0FD91E87C89F00D2F884 /* Binaries */,
 			);
 			sourceTree = "<group>";
 		};
-		83BA0FD91E87C89F00D2F884 /* Products */ = {
+		83BA0FD91E87C89F00D2F884 /* Binaries */ = {
 			isa = PBXGroup;
 			children = (
 				83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */,
 			);
-			name = Products;
+			name = Binaries;
 			sourceTree = "<group>";
 		};
-		83BA0FDA1E87C89F00D2F884 /* CoreDisplayFixup */ = {
+		83BA0FDA1E87C89F00D2F884 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
-				83BA0FDB1E87C89F00D2F884 /* kern_cdPatch.hpp */,
-				83BA0FDD1E87C89F00D2F884 /* kern_cdPatch.cpp */,
-				83BA0FDF1E87C89F00D2F884 /* Info.plist */,
+				83D783761E92992B00203061 /* Codes */,
+				83D783751E92990F00203061 /* Supporting Files */,
 			);
+			name = Source;
 			path = CoreDisplayFixup;
 			sourceTree = "<group>";
 		};
-		83BA0FE71E87C98D00D2F884 /* SDKs */ = {
+		83BA0FE71E87C98D00D2F884 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				83BA0FE81E87C99D00D2F884 /* Headers */,
-				83BA0FF51E87C99D00D2F884 /* Library */,
+				83CB7DFF1E9283C300668E54 /* Lilu */,
 			);
-			name = SDKs;
+			name = APIs;
 			sourceTree = "<group>";
 		};
 		83BA0FE81E87C99D00D2F884 /* Headers */ = {
@@ -127,6 +125,33 @@
 			);
 			name = Library;
 			path = Lilu.kext/Contents/Resources/Library;
+			sourceTree = "<group>";
+		};
+		83CB7DFF1E9283C300668E54 /* Lilu */ = {
+			isa = PBXGroup;
+			children = (
+				83BA0FE81E87C99D00D2F884 /* Headers */,
+				83BA0FF51E87C99D00D2F884 /* Library */,
+			);
+			name = Lilu;
+			sourceTree = "<group>";
+		};
+		83D783751E92990F00203061 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				83BA0FDF1E87C89F00D2F884 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		83D783761E92992B00203061 /* Codes */ = {
+			isa = PBXGroup;
+			children = (
+				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
+				83BA0FDB1E87C89F00D2F884 /* kern_cdPatch.hpp */,
+				83BA0FDD1E87C89F00D2F884 /* kern_cdPatch.cpp */,
+			);
+			name = Codes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +220,7 @@
 				en,
 			);
 			mainGroup = 83BA0FCE1E87C89F00D2F884;
-			productRefGroup = 83BA0FD91E87C89F00D2F884 /* Products */;
+			productRefGroup = 83BA0FD91E87C89F00D2F884 /* Binaries */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
