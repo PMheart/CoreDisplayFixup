@@ -19,7 +19,7 @@
 
 static const UINT8 KBEYosECSieSearch[]
 {
-    0xB8, 0x01, 0x00, 0x00, 0x00,                   // mov rax, 0x1
+    0xB8, 0x01, 0x00, 0x00, 0x00,                   // mov eax, 0x1
     0xF6, 0xC1, 0x01,                               // test cl, 0x1
     0x0F, 0x85                                      // jne "somewhere" ; Don't care for the exact offset!
 };
