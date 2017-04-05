@@ -20,11 +20,6 @@
 #include "kern_cdPatch.hpp"
 
 
-//
-// The version of this kext.
-//
-#define kextVer "1.0.0"
-
 
 //
 // The main function of this kext.
@@ -46,7 +41,7 @@ static void main()
     //   * SYSLOG("Message"); will print "<Plug-in name>: Message".
     //   * DBGLOG("Message"); will print "<Plug-in name>: (DEBUG) Message".
     //
-    SYSLOG("Version %s loaded. Copyright (c) 2017 vit9696, Vanilla. All rights reserved.", kextVer);
+//    SYSLOG("Version %s loaded. Copyright (c) 2017 vit9696, Vanilla. All rights reserved.", kextVer);
     
     //
     // Patch(es) for Yosemite. (10.10, Darwin 14)
@@ -63,7 +58,7 @@ static void main()
             ADDPR(binaryModSize)
         );
         
-        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+//        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
     }
     
     //
@@ -81,7 +76,7 @@ static void main()
             ADDPR(binaryModSize)
         );
         
-        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+//        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
     }
     
     //
@@ -99,7 +94,7 @@ static void main()
             ADDPR(binaryModSize)
         );
         
-        DBGLOG("CoreDisplay 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
+//        DBGLOG("CoreDisplay 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
     }
 }
 
