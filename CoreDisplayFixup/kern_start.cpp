@@ -23,7 +23,7 @@
 //
 // The version of this kext.
 //
-#define kextVer "1.2.1"
+#define kextVer "1.0.0"
 
 
 //
