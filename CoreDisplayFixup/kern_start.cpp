@@ -41,42 +41,23 @@ static void main()
     //   * SYSLOG("Message"); will print "<Plug-in name>: Message".
     //   * DBGLOG("Message"); will print "<Plug-in name>: (DEBUG) Message".
     //
-//    SYSLOG("Version %s loaded. Copyright (c) 2017 vit9696, Vanilla. All rights reserved.", kextVer);
+
     
     //
-    // Patch(es) for Yosemite. (10.10, Darwin 14)
+    // Patch(es) for Yosemite || El Capitan. (10.10, Darwin 14) || (10.11, Darwin 15)
     //
-    if (kernMajorVer == KernelVersion::Yosemite)
+    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan)
     {
         lilu.onProcLoad
         (
-            ADDPR(procInfoYosemite),
+            ADDPR(procInfoYosEC),
             ADDPR(procInfoSize),
             nullptr,
             nullptr,
-            ADDPR(binaryModYosemite),
+            ADDPR(binaryModYosEC),
             ADDPR(binaryModSize)
         );
         
-//        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
-    }
-    
-    //
-    // Patch(es) for El Capitan. (10.11, Darwin 15)
-    //
-    if (kernMajorVer == KernelVersion::ElCapitan)
-    {
-        lilu.onProcLoad
-        (
-            ADDPR(procInfoCapitan),
-            ADDPR(procInfoSize),
-            nullptr,
-            nullptr,
-            ADDPR(binaryModCapitan),
-            ADDPR(binaryModSize)
-        );
-        
-//        DBGLOG("IOKit 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
     }
     
     //
@@ -86,15 +67,14 @@ static void main()
     {
         lilu.onProcLoad
         (
-            ADDPR(procInfoSierra),
+            ADDPR(procInfoSie),
             ADDPR(procInfoSize),
             nullptr,
             nullptr,
-            ADDPR(binaryModSierra),
+            ADDPR(binaryModSie),
             ADDPR(binaryModSize)
         );
         
-//        DBGLOG("CoreDisplay 10.%d (Darwin %d) found and patched.", kernMajorVer - 4, kernMajorVer);
     }
 }
 

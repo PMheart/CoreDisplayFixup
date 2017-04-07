@@ -49,7 +49,7 @@ static UserPatcher::BinaryModPatch genericPatch[]
         0,
         1,
         UserPatcher::FileSegment::SegmentTextText,
-        SectionYosemite // 10.10.5 till 10.12.x
+        SectionYosEC // 10.10.5 till 10.12.x
     }
 };
 
@@ -61,7 +61,8 @@ static UserPatcher::BinaryModPatch genericPatch[]
 // Structure describing the modifications for the binary.
 //
 
-UserPatcher::BinaryModInfo ADDPR(binaryModYosemite)[]
+
+UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[]
 {
     {
         "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
@@ -70,16 +71,7 @@ UserPatcher::BinaryModInfo ADDPR(binaryModYosemite)[]
     }
 };
 
-UserPatcher::BinaryModInfo ADDPR(binaryModCapitan)[]
-{
-    {
-        "/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
-        genericPatch,
-        1
-    }
-};
-
-UserPatcher::BinaryModInfo ADDPR(binaryModSierra)[]
+UserPatcher::BinaryModInfo ADDPR(binaryModSie)[]
 {
     {
         "/System/Library/Frameworks/CoreDisplay.framework/Versions/A/CoreDisplay",
@@ -102,28 +94,20 @@ const size_t ADDPR(binaryModSize) {1};
 // Process(es) declarations.
 //
 
-UserPatcher::ProcInfo ADDPR(procInfoYosemite)[]
+UserPatcher::ProcInfo ADDPR(procInfoYosEC)[]
 {
     {
         "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer",
         83,
-        SectionYosemite
+        SectionYosEC
     }
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoCapitan)[] {
-    {
-        "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer",
-        83,
-        SectionElCapitan
-    }
-};
-
-UserPatcher::ProcInfo ADDPR(procInfoSierra)[] {
+UserPatcher::ProcInfo ADDPR(procInfoSie)[] {
     {
         "/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer",
         86,
-        SectionSierra
+        SectionSie
     }
 };
 

@@ -21,17 +21,13 @@ typedef uint32_t UINT32;
 
 
 //
-// Declaration of patch(es) for 10.10 (Darwin 14).
+// Declaration of patch(es) for 10.10 || 10.11 (Darwin 14 || Darwin 15).
 //
-extern UserPatcher::BinaryModInfo ADDPR(binaryModYosemite)[];
-//
-// Declaration of patch(es) for 10.11 (Darwin 15).
-//
-extern UserPatcher::BinaryModInfo ADDPR(binaryModCapitan)[];
+extern UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[];
 //
 // Declaration of patch(es) for 10.12 (Darwin 16).
 //
-extern UserPatcher::BinaryModInfo ADDPR(binaryModSierra)[];
+extern UserPatcher::BinaryModInfo ADDPR(binaryModSie)[];
 //
 // The amount of provided binary modifications.
 //
@@ -39,17 +35,13 @@ extern const size_t ADDPR(binaryModSize);
 
 
 //
-// Process(es) of patch(es) for 10.10 (Darwin 14).
+// Process(es) of patch(es) 10.10 || 10.11 (Darwin 14 || Darwin 15).
 //
-extern UserPatcher::ProcInfo ADDPR(procInfoYosemite)[];
-//
-// Process(es) of patch(es) for 10.11 (Darwin 15).
-//
-extern UserPatcher::ProcInfo ADDPR(procInfoCapitan)[];
+extern UserPatcher::ProcInfo ADDPR(procInfoYosEC)[];
 //
 // Process(es) of patch(es) for 10.12 (Darwin 16).
 //
-extern UserPatcher::ProcInfo ADDPR(procInfoSierra)[];
+extern UserPatcher::ProcInfo ADDPR(procInfoSie)[];
 //
 // The amount of provided processes.
 //
@@ -61,7 +53,6 @@ extern const size_t ADDPR(procInfoSize);
 //
 enum : UINT32
 {
-    SectionYosemite   = 1,
-    SectionElCapitan  = 2,
-    SectionSierra     = 3
+    SectionYosEC = 1,
+    SectionSie   = 2
 };
