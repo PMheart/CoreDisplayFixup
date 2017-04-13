@@ -11,7 +11,7 @@ Well, addtionally you may have a corrupted shared cache, to fix it up, disable C
 - [Apple](https://www.apple.com) for macOS  
 - [vit9696](https://github.com/vit9696) for [Lilu.kext](https://github.com/vit9696/Lilu) and some ideas
 - [Floris497](https://github.com/Floris497) for the [patches](https://github.com/Floris497/mac-pixel-clock-patch-v2)
-- [gujiangjiang](https://github.com/gujiangjiang) for major tests
+- [gujiangjiang](https://github.com/gujiangjiang) and [wmchris](https://github.com/wmchris) for major tests
 - [PMheart](https://github.com/PMheart) for writing the software and maintaining it
 
 #### Bug reports
