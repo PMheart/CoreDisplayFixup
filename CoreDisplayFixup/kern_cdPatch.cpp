@@ -103,7 +103,8 @@ UserPatcher::ProcInfo ADDPR(procInfoYosEC)[]
     }
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSie)[] {
+UserPatcher::ProcInfo ADDPR(procInfoSie)[]
+{
     {
         "/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/Resources/WindowServer",
         86,

@@ -81,7 +81,7 @@
 		83BA0FDA1E87C89F00D2F884 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				83D783761E92992B00203061 /* Codes */,
+				83D783761E92992B00203061 /* Code */,
 				83D783751E92990F00203061 /* Supporting Files */,
 			);
 			name = Source;
@@ -144,14 +144,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		83D783761E92992B00203061 /* Codes */ = {
+		83D783761E92992B00203061 /* Code */ = {
 			isa = PBXGroup;
 			children = (
 				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
 				83BA0FDB1E87C89F00D2F884 /* kern_cdPatch.hpp */,
 				83BA0FDD1E87C89F00D2F884 /* kern_cdPatch.cpp */,
 			);
-			name = Codes;
+			name = Code;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
