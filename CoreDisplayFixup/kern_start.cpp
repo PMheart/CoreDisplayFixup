@@ -36,12 +36,6 @@ static void main()
     //
     KernelVersion kernMajorVer = getKernelVersion();
     
-    //
-    // Notes:
-    //   * SYSLOG("Message"); will print "<Plug-in name>: Message".
-    //   * DBGLOG("Message"); will print "<Plug-in name>: (DEBUG) Message".
-    //
-
     
     //
     // Patch(es) for Yosemite || El Capitan. (10.10, Darwin 14) || (10.11, Darwin 15)
@@ -59,6 +53,7 @@ static void main()
         );
         
     }
+    
     
     //
     // Patch(es) for Sierra. (10.12, Darwin 16)
@@ -89,9 +84,11 @@ static const char *bootargOff[]
 //
 // Boot argument to enable debug logging of this kext. [ DBGLOG("Message"); // will be called]
 //
+// Note: This will be NOT used here, it's actually needed by Lilu. (So just a placeholder.)
+//
 static const char *bootargDebug[]
 {
-    "-cdfdbg"
+    // nothing here.
 };
 
 //
@@ -122,6 +119,8 @@ PluginConfiguration ADDPR(config)
     sizeof(bootargOff)/sizeof(bootargOff[0]),
     //
     // Check whether debugging argument(s) is (are) used.
+    //
+    // Note: Nothing will be called in this kext.
     //
     bootargDebug,
     sizeof(bootargDebug)/sizeof(bootargDebug[0]),
