@@ -88,7 +88,7 @@ static const char *bootargOff[]
 //
 static const char *bootargDebug[]
 {
-    // nothing here.
+    nullptr
 };
 
 //
