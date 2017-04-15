@@ -77,16 +77,6 @@ static const char *bootargOff[]
 };
 
 //
-// Boot argument to enable debug logging of this kext. [ DBGLOG("Message"); // will be called]
-//
-// Note: This will be NOT used here, it's actually needed by Lilu. (So just a placeholder.)
-//
-static const char *bootargDebug[]
-{
-    nullptr
-};
-
-//
 // Boot argument to load this kext on an unsupported darwin version.
 //
 static const char *bootargBeta[]
@@ -113,12 +103,10 @@ PluginConfiguration ADDPR(config)
     bootargOff,
     sizeof(bootargOff)/sizeof(bootargOff[0]),
     //
-    // Check whether debugging argument(s) is (are) used.
+    // Placeholders for debugging argument. (We've no need for that.)
     //
-    // Note: Nothing will be called in this kext.
-    //
-    bootargDebug,
-    sizeof(bootargDebug)/sizeof(bootargDebug[0]),
+    nullptr,
+    0,
     //
     // Check whether enforcing argument(s) is (are) used.
     //
