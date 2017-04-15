@@ -20,7 +20,6 @@
 #include "kern_cdPatch.hpp"
 
 
-
 //
 // The main function of this kext.
 //
@@ -35,8 +34,7 @@ static void main()
     //   * More things are to be updated.
     //
     KernelVersion kernMajorVer = getKernelVersion();
-    
-    
+  
     //
     // Patch(es) for Yosemite || El Capitan. (10.10, Darwin 14) || (10.11, Darwin 15)
     //
@@ -51,9 +49,7 @@ static void main()
             ADDPR(binaryModYosEC),
             ADDPR(binaryModSize)
         );
-        
     }
-    
     
     //
     // Patch(es) for Sierra. (10.12, Darwin 16)
@@ -69,7 +65,6 @@ static void main()
             ADDPR(binaryModSie),
             ADDPR(binaryModSize)
         );
-        
     }
 }
 
