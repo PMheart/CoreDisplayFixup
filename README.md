@@ -5,6 +5,7 @@ A [Lilu](https://github.com/vit9696/Lilu) plug-in kernel extension which targets
 
 #### Notes
 This repository should be compiled with [Lilu](https://github.com/vit9696/Lilu) v1.1.0 and greater, for otherwise the compilation will be failed! 
+
 Note: ***Debug version of Lilu.kext should be put in the same folder as CoreDisplayFixup! And they should be also used together!***
 
 Well, addtionally you may have a corrupted shared cache, to fix it up, disable CoreDisplayFixup and reboot, then run ```sudo update_dyld_shared_cache -force``` command in Terminal.
