@@ -10,6 +10,11 @@ Note: ***Debug version of Lilu.kext should be put in the same folder as CoreDisp
 
 Well, addtionally you may have a corrupted shared cache, to fix it up, disable CoreDisplayFixup and reboot, then run ```sudo update_dyld_shared_cache -force``` command in Terminal.
 
+### Support and discussion
+- [InsanelyMac topic](http://www.insanelymac.com/forum/topic/322841-coredisplayfixup-fixing-certain-problems-for-4k-or-greater-resolution-on-non-iris-intel-graphics/) in English
+- [PCBeta aka 远景论坛](http://bbs.pcbeta.com/viewthread-1736985-1-1.html) in Chinese/中文
+- [GitHub Issues](https://github.com/PMheart/CoreDisplayFixup/issues)
+
 #### Credits
 - [Apple](https://www.apple.com) for macOS  
 - [vit9696](https://github.com/vit9696) for [Lilu.kext](https://github.com/vit9696/Lilu) and some ideas
