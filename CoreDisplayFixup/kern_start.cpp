@@ -7,121 +7,56 @@
 //  This kext is made based on vit9696's Shiki, without his amazing repo it won't be here!
 //
 
-//
-// Lilu::Headers
-//
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
+#include "CoreDisplayFixup.hpp"
+#include "OSMinorVersion.hpp"
 
-//
-// CoreDisplayFixup::Headers
-//
-#include "kern_cdPatch.hpp"
-
-
-//
-// The main function of this kext.
-//
-static void main()
-{
-    //
-    // The temporary workaround of lack of OS Dependency feature in <Headers/kern_user.hpp>,
-    // patching the target framework(s) based on darwin version.
-    //
-    // Cons:
-    //   * The patch(es) can be catastrophic once there will be different patches in the same major version.
-    //   * More things are to be updated.
-    //
+static void cdfStart() {
+    OSVersion *osVersion = new OSVersion();
     KernelVersion kernMajorVer = getKernelVersion();
-  
-    //
-    // Patch(es) for Yosemite || El Capitan. (10.10, Darwin 14) || (10.11, Darwin 15)
-    //
-    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan)
-    {
-        lilu.onProcLoad
-        (
-            ADDPR(procInfoYosEC),
-            ADDPR(procInfoSize),
-            nullptr,
-            nullptr,
-            ADDPR(binaryModYosEC),
-            ADDPR(binaryModSize)
-        );
-    }
     
-    //
-    // Patch(es) for Sierra. (10.12, Darwin 16)
-    //
-    if (kernMajorVer == KernelVersion::Sierra)
-    {
-        lilu.onProcLoad
-        (
-            ADDPR(procInfoSie),
-            ADDPR(procInfoSize),
-            nullptr,
-            nullptr,
-            ADDPR(binaryModSie),
-            ADDPR(binaryModSize)
-        );
-    }
+    SYSLOG("cdf @ Starting on macOS 10.%d.%d", kernMajorVer - 4, osVersion->getMinorVersion());
+    
+    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
+        lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
+    else if (kernMajorVer == KernelVersion::Sierra) // if 10.12.x
+        lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
+    else // currently unsupported
+        SYSLOG("cdf @ Loading on unsupported OS");
 }
 
-//
-// Boot argument to unload this kext.
-//
-static const char *bootargOff[]
-{
-    "-cdfoff"
-};
+// kext flag to unload CoreDisplayFixup
+static const char *bootargOff[] = { "-cdfoff" };
 
-//
-// Boot argument to load this kext on an unsupported darwin version.
-//
-static const char *bootargBeta[]
-{
-    "-cdfbeta"
-};
+// kext flag to enable debug logging of CoreDisplayFixup
+// (only available while CDF is accompanied by debug build Lilu)
+static const char *bootargDebug[] = { "-cdfdbg" };
 
-//
-// Start calling Lilu. (Check <Headers/plugin_start.hpp>)
-//
+// kext flag to load CoreDisplayFixup regardless of darwin version
+static const char *bootargBeta[] = { "-cdfbeta" };
+
 PluginConfiguration ADDPR(config)
 {
-    //
-    // The name of the Lilu plug-in (CoreDisplayFixup here).
-    //
     xStringify(PRODUCT_NAME),
-    //
-    // For Lilu 1.1.0 and above, comment out this will bring the compatibility of older Lilu (1.0.0)
-    //
+    
+    // Lilu 1.1.0 and greater compatibility
     parseModuleVersion(xStringify(MODULE_VERSION)),
-    //
-    // Check whether unloading argument(s) is (are) used.
-    //
+    
     bootargOff,
     sizeof(bootargOff)/sizeof(bootargOff[0]),
-    //
-    // Placeholders for debugging argument. (We've no need for that.)
-    //
-    nullptr,
-    0,
-    //
-    // Check whether enforcing argument(s) is (are) used.
-    //
+
+    bootargDebug,
+    sizeof(bootargDebug)/sizeof(bootargDebug[0]),
+
     bootargBeta,
     sizeof(bootargBeta)/sizeof(bootargBeta[0]),
-    //
-    // The minimum darwin version to load this kext. (Should be 10.10 - darwin 14.)
-    //
+    
+    // minKernel
     KernelVersion::Yosemite,
-    //
-    // The maximum darwin version to load this kext. (Should be 10.12 - darwin 16.)
-    //
+    // maxKernel
     KernelVersion::Sierra,
-    //
-    // Start calling the function main() of this kext.
-    //
-    main
+    
+    cdfStart
 };
