@@ -12,7 +12,7 @@
 
 int OSVersion::getMinorVersion() {
 	// Reference:
-	// https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/CoreDisplay-patcher.command
+	// https://en.wikipedia.org/wiki/MacOS_Sierra#Releases
 	//
 	// Apple has reversed Darwin 16.2.0 due to unknown reasons,
 	// and thus we can't get the real macOS version,
