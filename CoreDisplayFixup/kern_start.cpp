@@ -10,21 +10,33 @@
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
-#include "CoreDisplayFixup.hpp"
-#include "OSMinorVersion.hpp"
+#include "IntelReslFixup.hpp"
+#include "NVReslFixup.hpp"
 
-static void cdfStart() {
-    OSVersion *osVersion = new OSVersion();
+static NVRESL nvresl;
+extern "C" int version_minor;
+
+
+static void intelStart() {
     KernelVersion kernMajorVer = getKernelVersion();
+    int kernMinorVersion = 0;
     
-    SYSLOG("cdf @ Starting on macOS 10.%d.%d", kernMajorVer - 4, osVersion->getMinorVersion());
+    if (kernMajorVer == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
+        kernMinorVersion = version_minor - 1;
+    else // legacy versions
+        kernMinorVersion = version_minor;
+    
+    SYSLOG("cdf @ Starting on macOS 10.%d.%d", kernMajorVer - 4, kernMinorVersion);
     
     if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
         lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
     else if (kernMajorVer == KernelVersion::Sierra) // if 10.12.x
         lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
-    else // currently unsupported
-        SYSLOG("cdf @ Loading on unsupported OS");
+}
+
+static void cdfStart() {
+    intelStart();
+    nvresl.init();
 }
 
 // kext flag to unload CoreDisplayFixup

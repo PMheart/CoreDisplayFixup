@@ -7,12 +7,14 @@
 //  This kext is made based on vit9696's Shiki, without his amazing repo it won't be here!
 //
 
-#include "CoreDisplayFixup.hpp"
+#include "IntelReslFixup.hpp"
 
 static const size_t bufSize = 10;
 
 // Reference:
 // https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/CoreDisplay-patcher.command
+//
+
 static const uint8_t findBuf[bufSize] {
     0xB8, 0x01, 0x00, 0x00, 0x00,                   // mov eax, 0x1
     0xF6, 0xC1, 0x01,                               // test cl, 0x1

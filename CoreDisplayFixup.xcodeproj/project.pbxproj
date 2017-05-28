@@ -20,20 +20,20 @@
 		832B03F41E87CDF500CF1651 /* kern_util.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF31E87C99D00D2F884 /* kern_util.hpp */; };
 		832B03F51E87CDF500CF1651 /* plugin_start.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF41E87C99D00D2F884 /* plugin_start.hpp */; };
 		832B03F61E87CDFA00CF1651 /* LegacyIOService.h in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF61E87C99D00D2F884 /* LegacyIOService.h */; };
-		838B83351EDA1582006DBC1B /* OSMinorVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838B83331EDA1582006DBC1B /* OSMinorVersion.cpp */; };
-		838B83361EDA1582006DBC1B /* OSMinorVersion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 838B83341EDA1582006DBC1B /* OSMinorVersion.hpp */; };
-		83BA0FDE1E87C89F00D2F884 /* CoreDisplayFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FDD1E87C89F00D2F884 /* CoreDisplayFixup.cpp */; };
+		835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835728261EDA865500D7A536 /* NVReslFixup.cpp */; };
+		835728291EDA865500D7A536 /* NVReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVReslFixup.hpp */; };
+		83BA0FDE1E87C89F00D2F884 /* IntelReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */; };
 		83BA0FE61E87C8DE00D2F884 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */; };
 		83BA10061E87C99D00D2F884 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0FF71E87C99D00D2F884 /* libkmod.a */; };
 		83BA10071E87C99D00D2F884 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FF81E87C99D00D2F884 /* plugin_start.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		838B83331EDA1582006DBC1B /* OSMinorVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OSMinorVersion.cpp; sourceTree = "<group>"; };
-		838B83341EDA1582006DBC1B /* OSMinorVersion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OSMinorVersion.hpp; sourceTree = "<group>"; };
+		835728261EDA865500D7A536 /* NVReslFixup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVReslFixup.cpp; sourceTree = "<group>"; };
+		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BA0FDB1E87C89F00D2F884 /* CoreDisplayFixup.hpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = CoreDisplayFixup.hpp; sourceTree = "<group>"; tabWidth = 4; };
-		83BA0FDD1E87C89F00D2F884 /* CoreDisplayFixup.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreDisplayFixup.cpp; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
+		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 4; };
+		83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntelReslFixup.cpp; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
 		83BA0FDF1E87C89F00D2F884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		83BA0FE91E87C99D00D2F884 /* kern_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
@@ -65,6 +65,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8340779B1EDAA07C00F2A038 /* Intel */ = {
+			isa = PBXGroup;
+			children = (
+				83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */,
+				83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */,
+			);
+			name = Intel;
+			sourceTree = "<group>";
+		};
+		8340779C1EDAA08A00F2A038 /* Nvidia */ = {
+			isa = PBXGroup;
+			children = (
+				835728261EDA865500D7A536 /* NVReslFixup.cpp */,
+				835728271EDA865500D7A536 /* NVReslFixup.hpp */,
+			);
+			name = Nvidia;
+			sourceTree = "<group>";
+		};
 		83BA0FCE1E87C89F00D2F884 = {
 			isa = PBXGroup;
 			children = (
@@ -152,10 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
-				83BA0FDB1E87C89F00D2F884 /* CoreDisplayFixup.hpp */,
-				83BA0FDD1E87C89F00D2F884 /* CoreDisplayFixup.cpp */,
-				838B83341EDA1582006DBC1B /* OSMinorVersion.hpp */,
-				838B83331EDA1582006DBC1B /* OSMinorVersion.cpp */,
+				8340779B1EDAA07C00F2A038 /* Intel */,
+				8340779C1EDAA08A00F2A038 /* Nvidia */,
 			);
 			name = Code;
 			sourceTree = "<group>";
@@ -172,7 +188,6 @@
 				832B03EB1E87CDF500CF1651 /* kern_compression.hpp in Headers */,
 				832B03EC1E87CDF500CF1651 /* kern_config.hpp in Headers */,
 				832B03ED1E87CDF500CF1651 /* kern_disasm.hpp in Headers */,
-				838B83361EDA1582006DBC1B /* OSMinorVersion.hpp in Headers */,
 				832B03EE1E87CDF500CF1651 /* kern_file.hpp in Headers */,
 				832B03EF1E87CDF500CF1651 /* kern_iokit.hpp in Headers */,
 				832B03F01E87CDF500CF1651 /* kern_mach.hpp in Headers */,
@@ -180,6 +195,7 @@
 				832B03F21E87CDF500CF1651 /* kern_policy.hpp in Headers */,
 				832B03F31E87CDF500CF1651 /* kern_user.hpp in Headers */,
 				832B03F41E87CDF500CF1651 /* kern_util.hpp in Headers */,
+				835728291EDA865500D7A536 /* NVReslFixup.hpp in Headers */,
 				832B03F51E87CDF500CF1651 /* plugin_start.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,8 +268,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BA0FE61E87C8DE00D2F884 /* kern_start.cpp in Sources */,
-				83BA0FDE1E87C89F00D2F884 /* CoreDisplayFixup.cpp in Sources */,
-				838B83351EDA1582006DBC1B /* OSMinorVersion.cpp in Sources */,
+				83BA0FDE1E87C89F00D2F884 /* IntelReslFixup.cpp in Sources */,
+				835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */,
 				83BA10071E87C99D00D2F884 /* plugin_start.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,7 +377,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -405,7 +421,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
