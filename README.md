@@ -1,7 +1,7 @@
 CoreDisplayFixup
 ===================
 
-A [Lilu](https://github.com/vit9696/Lilu) plug-in kernel extension which targets at patching IOKit/CoreDisplay dynamically to enable 4K or greater resolutions output on non-Iris Intel Graphics.
+A [Lilu](https://github.com/vit9696/Lilu) plug-in kernel extension which targets at patching system frameworks/kexts dynamically to enable 4K or greater resolutions output on certain graphics (See [here](https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/README.md) for more details).
 
 #### Notes
 This repository should be compiled with [Lilu](https://github.com/vit9696/Lilu) v1.1.0 and greater, otherwise the compilation will be failed! 
