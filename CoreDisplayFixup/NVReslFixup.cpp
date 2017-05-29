@@ -22,7 +22,7 @@ static const char *kextNVDAGK100Hal[] {
 };
 
 static KernelPatcher::KextInfo kextList[] {
-	{ "com.apple.nvidia.driver.NVDAGK100Hal", kextNVDAGK100Hal, 1, true, {}, KernelPatcher::KextInfo::Unloaded }
+	{ "com.apple.nvidia.driver.NVDAGK100Hal", kextNVDAGK100Hal, 2, true, {}, KernelPatcher::KextInfo::Unloaded }
 };
 
 static size_t kextListSize {1};
@@ -51,8 +51,10 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
 			if (!(progressState & ProcessingState::NVReslPatched) && strcmp(kextList[i].id, "com.apple.nvidia.driver.NVDAGK100Hal")) {
 				DBGLOG("cdf @ NVPatcher found com.apple.nvidia.driver.NVDAGK100Hal");
 				
-				// patches reference:
+				//
+				// Reference:
 				// https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/NVIDIA-patcher.command
+				//
 				
 				// patch #1-1 start
 				const uint8_t find1_1[] = { 0xC7, 0x82, 0xC8, 0x00, 0x00, 0x00, 0x88, 0x84, 0x02, 0x00 };

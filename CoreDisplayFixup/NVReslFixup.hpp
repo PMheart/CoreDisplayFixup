@@ -58,4 +58,5 @@ private:
 	
 	int progressState = {ProcessingState::NothingReady};
 };
+
 #endif /* NVReslFixup_hpp */

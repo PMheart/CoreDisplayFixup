@@ -1,5 +1,5 @@
 //
-//  kern_cdPatch.hpp
+//  IntelReslFixup.hpp
 //  CoreDisplayFixup
 //
 //  Copyright © 2017 vit9696, Vanilla. All rights reserved.

@@ -33,7 +33,7 @@
 		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 4; };
-		83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntelReslFixup.cpp; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 1; };
+		83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = IntelReslFixup.cpp; sourceTree = "<group>"; tabWidth = 2; wrapsLines = 1; };
 		83BA0FDF1E87C89F00D2F884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
 		83BA0FE91E87C99D00D2F884 /* kern_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		8340779C1EDAA08A00F2A038 /* Nvidia */ = {
 			isa = PBXGroup;
 			children = (
-				835728261EDA865500D7A536 /* NVReslFixup.cpp */,
 				835728271EDA865500D7A536 /* NVReslFixup.hpp */,
+				835728261EDA865500D7A536 /* NVReslFixup.cpp */,
 			);
 			name = Nvidia;
 			sourceTree = "<group>";

@@ -1,5 +1,5 @@
 //
-//  kern_cdPatch.cpp
+//  IntelReslFixup.cpp
 //  CoreDisplayFixup
 //
 //  Copyright © 2017 vit9696, Vanilla. All rights reserved.
@@ -11,6 +11,7 @@
 
 static const size_t bufSize = 10;
 
+//
 // Reference:
 // https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/CoreDisplay-patcher.command
 //
