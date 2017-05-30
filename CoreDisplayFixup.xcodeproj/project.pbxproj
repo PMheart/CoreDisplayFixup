@@ -21,6 +21,7 @@
 		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
 		836374E81EDCEA7D002FD1DA /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		836374EA1EDCEA7D002FD1DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		837FE9341EDD0EB90055B9A9 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		838CF0581EDCEBD3001CF207 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 2; };
@@ -80,6 +81,7 @@
 				838CF0581EDCEBD3001CF207 /* LICENSE */,
 				836374EA1EDCEA7D002FD1DA /* README.md */,
 				836374E81EDCEA7D002FD1DA /* Changelog.md */,
+				837FE9341EDD0EB90055B9A9 /* Instructions.md */,
 			);
 			name = Docs;
 			sourceTree = "<group>";
