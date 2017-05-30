@@ -48,11 +48,12 @@ private:
    */
   struct ProcessingState {
     enum {
-      NothingReady       = 0,
-      NVGK100ReslPatched = 2,
-      NVGM100ReslPatched = 4,
-      NVGP100ReslPatched = 8,
-      EverythingDone = NVGK100ReslPatched | NVGM100ReslPatched | NVGP100ReslPatched,
+      NothingReady          = 0,
+      NVGK100ReslPatched    = 1,
+      NVGK100WebReslPatched = 2,
+      NVGM100ReslPatched    = 4,
+      NVGP100ReslPatched    = 8,
+      AnythingDone = NVGK100ReslPatched | NVGK100WebReslPatched | NVGM100ReslPatched | NVGP100ReslPatched,
     };
   };
   

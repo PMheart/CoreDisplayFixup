@@ -13,25 +13,25 @@
 #include "IntelReslFixup.hpp"
 #include "NVReslFixup.hpp"
 
-KernelVersion kernMajorVersion = getKernelVersion();
 static NVRESL nvresl;
 extern "C" int version_minor;
 
-static int getSystemMinorVersion() {
-  int sysMinorVersion = 0;
-    
-  if (kernMajorVersion == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
-    sysMinorVersion = version_minor - 1;
-  else // legacy versions
-    sysMinorVersion = version_minor;
-    
-  return sysMinorVersion;
-}
-
 // kernel versioning
-int sysMajorVersion = kernMajorVersion - 4;
-int kernMinorVersion = getSystemMinorVersion();
-int sysMinorVersion = kernMinorVersion;
+static KernelVersion kernMajorVersion;
+static int kernMinorVersion;
+static int sysMajorVersion;
+static int sysMinorVersion;
+
+static void setSystemVersions() {
+  kernMajorVersion = getKernelVersion();
+  sysMajorVersion = kernMajorVersion - 4;
+  
+  kernMinorVersion = version_minor;
+  if (kernMajorVersion == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
+    sysMinorVersion = kernMinorVersion - 1;
+  else // legacy versions
+    sysMinorVersion = kernMinorVersion;
+}
 
 static void intelStart() {
   SYSLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
@@ -49,6 +49,8 @@ static void nvStart() {
 }
 
 static void cdfStart() {
+  setSystemVersions();
+  
   // check boot-args
   char tmp[16];
   bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
