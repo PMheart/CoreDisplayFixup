@@ -21,7 +21,6 @@ struct KextPatch {
 class NVRESL {
 public:
   bool init();
-  void deinit();
 
 private:
   /**
@@ -49,9 +48,11 @@ private:
    */
   struct ProcessingState {
     enum {
-      NothingReady  = 0,
-      NVReslPatched = 2,
-      EverythingDone = NVReslPatched
+      NothingReady       = 0,
+      NVGK100ReslPatched = 2,
+      NVGM100ReslPatched = 4,
+      NVGP100ReslPatched = 8,
+      EverythingDone = NVGK100ReslPatched | NVGM100ReslPatched | NVGP100ReslPatched,
     };
   };
   

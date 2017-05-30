@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.2.2
+- Added ``Maxwell`` and ``Pascal`` support for NVPatcher
+
 #### v1.2.1
 - Kernel flags `-cdfinteloff` and `-cdfnvoff` are now available to disable particular patcher(s).
   - `-cdfinteloff` to disable IntelPatcher
