@@ -17,7 +17,7 @@ KernelVersion kernMajorVersion = getKernelVersion();
 static NVRESL nvresl;
 extern "C" int version_minor;
 
-int getSystemMinorVersion() {
+static int getSystemMinorVersion() {
   int sysMinorVersion = 0;
     
   if (kernMajorVersion == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
@@ -49,7 +49,6 @@ static void nvStart() {
 }
 
 static void cdfStart() {
-
   // check boot-args
   char tmp[16];
   bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
