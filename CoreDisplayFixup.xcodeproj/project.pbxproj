@@ -7,21 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		832B03EA1E87CDF500CF1651 /* kern_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FE91E87C99D00D2F884 /* kern_api.hpp */; };
-		832B03EB1E87CDF500CF1651 /* kern_compression.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FEA1E87C99D00D2F884 /* kern_compression.hpp */; };
-		832B03EC1E87CDF500CF1651 /* kern_config.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FEB1E87C99D00D2F884 /* kern_config.hpp */; };
-		832B03ED1E87CDF500CF1651 /* kern_disasm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FEC1E87C99D00D2F884 /* kern_disasm.hpp */; };
-		832B03EE1E87CDF500CF1651 /* kern_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FED1E87C99D00D2F884 /* kern_file.hpp */; };
-		832B03EF1E87CDF500CF1651 /* kern_iokit.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FEE1E87C99D00D2F884 /* kern_iokit.hpp */; };
-		832B03F01E87CDF500CF1651 /* kern_mach.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FEF1E87C99D00D2F884 /* kern_mach.hpp */; };
-		832B03F11E87CDF500CF1651 /* kern_patcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF01E87C99D00D2F884 /* kern_patcher.hpp */; };
-		832B03F21E87CDF500CF1651 /* kern_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF11E87C99D00D2F884 /* kern_policy.hpp */; };
-		832B03F31E87CDF500CF1651 /* kern_user.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF21E87C99D00D2F884 /* kern_user.hpp */; };
-		832B03F41E87CDF500CF1651 /* kern_util.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF31E87C99D00D2F884 /* kern_util.hpp */; };
-		832B03F51E87CDF500CF1651 /* plugin_start.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF41E87C99D00D2F884 /* plugin_start.hpp */; };
-		832B03F61E87CDFA00CF1651 /* LegacyIOService.h in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FF61E87C99D00D2F884 /* LegacyIOService.h */; };
 		835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835728261EDA865500D7A536 /* NVReslFixup.cpp */; };
-		835728291EDA865500D7A536 /* NVReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVReslFixup.hpp */; };
+		837F736A1EDC94F200DFB50F /* IntelReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */; };
+		837F736B1EDC94F600DFB50F /* NVReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVReslFixup.hpp */; };
 		83BA0FDE1E87C89F00D2F884 /* IntelReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */; };
 		83BA0FE61E87C8DE00D2F884 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */; };
 		83BA10061E87C99D00D2F884 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0FF71E87C99D00D2F884 /* libkmod.a */; };
@@ -31,11 +19,14 @@
 /* Begin PBXFileReference section */
 		835728261EDA865500D7A536 /* NVReslFixup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVReslFixup.cpp; sourceTree = "<group>"; };
 		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
+		836374E81EDCEA7D002FD1DA /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
+		836374EA1EDCEA7D002FD1DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		838CF0581EDCEBD3001CF207 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 4; };
+		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 2; };
 		83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = IntelReslFixup.cpp; sourceTree = "<group>"; tabWidth = 2; wrapsLines = 1; };
 		83BA0FDF1E87C89F00D2F884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; wrapsLines = 1; };
 		83BA0FE91E87C99D00D2F884 /* kern_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
 		83BA0FEA1E87C99D00D2F884 /* kern_compression.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_compression.hpp; sourceTree = "<group>"; };
 		83BA0FEB1E87C99D00D2F884 /* kern_config.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_config.hpp; sourceTree = "<group>"; };
@@ -65,57 +56,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8340779B1EDAA07C00F2A038 /* Intel */ = {
+		8340779B1EDAA07C00F2A038 /* IntelPatcher */ = {
 			isa = PBXGroup;
 			children = (
 				83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */,
 				83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */,
 			);
-			name = Intel;
+			name = IntelPatcher;
 			sourceTree = "<group>";
 		};
-		8340779C1EDAA08A00F2A038 /* Nvidia */ = {
+		8340779C1EDAA08A00F2A038 /* NVPatcher */ = {
 			isa = PBXGroup;
 			children = (
 				835728271EDA865500D7A536 /* NVReslFixup.hpp */,
 				835728261EDA865500D7A536 /* NVReslFixup.cpp */,
 			);
-			name = Nvidia;
+			name = NVPatcher;
+			sourceTree = "<group>";
+		};
+		836374E71EDCEA64002FD1DA /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				838CF0581EDCEBD3001CF207 /* LICENSE */,
+				836374EA1EDCEA7D002FD1DA /* README.md */,
+				836374E81EDCEA7D002FD1DA /* Changelog.md */,
+			);
+			name = Docs;
 			sourceTree = "<group>";
 		};
 		83BA0FCE1E87C89F00D2F884 = {
 			isa = PBXGroup;
 			children = (
-				83BA0FE71E87C98D00D2F884 /* APIs */,
-				83BA0FDA1E87C89F00D2F884 /* Source */,
-				83BA0FD91E87C89F00D2F884 /* Binaries */,
+				836374E71EDCEA64002FD1DA /* Docs */,
+				83BA0FE71E87C98D00D2F884 /* SDK */,
+				83BA0FDA1E87C89F00D2F884 /* CoreDisplayFixup */,
+				83BA0FD91E87C89F00D2F884 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		83BA0FD91E87C89F00D2F884 /* Binaries */ = {
+		83BA0FD91E87C89F00D2F884 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */,
 			);
-			name = Binaries;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		83BA0FDA1E87C89F00D2F884 /* Source */ = {
+		83BA0FDA1E87C89F00D2F884 /* CoreDisplayFixup */ = {
 			isa = PBXGroup;
 			children = (
-				83D783761E92992B00203061 /* Code */,
+				83D783761E92992B00203061 /* Source */,
 				83D783751E92990F00203061 /* Supporting Files */,
 			);
-			name = Source;
 			path = CoreDisplayFixup;
 			sourceTree = "<group>";
 		};
-		83BA0FE71E87C98D00D2F884 /* APIs */ = {
+		83BA0FE71E87C98D00D2F884 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				83CB7DFF1E9283C300668E54 /* Lilu */,
+				83BA0FE81E87C99D00D2F884 /* Headers */,
+				83BA0FF51E87C99D00D2F884 /* Library */,
 			);
-			name = APIs;
+			name = SDK;
 			sourceTree = "<group>";
 		};
 		83BA0FE81E87C99D00D2F884 /* Headers */ = {
@@ -149,15 +151,6 @@
 			path = Lilu.kext/Contents/Resources/Library;
 			sourceTree = "<group>";
 		};
-		83CB7DFF1E9283C300668E54 /* Lilu */ = {
-			isa = PBXGroup;
-			children = (
-				83BA0FE81E87C99D00D2F884 /* Headers */,
-				83BA0FF51E87C99D00D2F884 /* Library */,
-			);
-			name = Lilu;
-			sourceTree = "<group>";
-		};
 		83D783751E92990F00203061 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,14 +159,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		83D783761E92992B00203061 /* Code */ = {
+		83D783761E92992B00203061 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
-				8340779B1EDAA07C00F2A038 /* Intel */,
-				8340779C1EDAA08A00F2A038 /* Nvidia */,
+				8340779B1EDAA07C00F2A038 /* IntelPatcher */,
+				8340779C1EDAA08A00F2A038 /* NVPatcher */,
 			);
-			name = Code;
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,20 +176,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				832B03F61E87CDFA00CF1651 /* LegacyIOService.h in Headers */,
-				832B03EA1E87CDF500CF1651 /* kern_api.hpp in Headers */,
-				832B03EB1E87CDF500CF1651 /* kern_compression.hpp in Headers */,
-				832B03EC1E87CDF500CF1651 /* kern_config.hpp in Headers */,
-				832B03ED1E87CDF500CF1651 /* kern_disasm.hpp in Headers */,
-				832B03EE1E87CDF500CF1651 /* kern_file.hpp in Headers */,
-				832B03EF1E87CDF500CF1651 /* kern_iokit.hpp in Headers */,
-				832B03F01E87CDF500CF1651 /* kern_mach.hpp in Headers */,
-				832B03F11E87CDF500CF1651 /* kern_patcher.hpp in Headers */,
-				832B03F21E87CDF500CF1651 /* kern_policy.hpp in Headers */,
-				832B03F31E87CDF500CF1651 /* kern_user.hpp in Headers */,
-				832B03F41E87CDF500CF1651 /* kern_util.hpp in Headers */,
-				835728291EDA865500D7A536 /* NVReslFixup.hpp in Headers */,
-				832B03F51E87CDF500CF1651 /* plugin_start.hpp in Headers */,
+				837F736B1EDC94F600DFB50F /* NVReslFixup.hpp in Headers */,
+				837F736A1EDC94F200DFB50F /* IntelReslFixup.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +224,7 @@
 				en,
 			);
 			mainGroup = 83BA0FCE1E87C89F00D2F884;
-			productRefGroup = 83BA0FD91E87C89F00D2F884 /* Binaries */;
+			productRefGroup = 83BA0FD91E87C89F00D2F884 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -377,7 +358,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.2.0;
+				MODULE_VERSION = 1.2.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -406,6 +387,7 @@
 				GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS = NO;
 				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"MODULE_VERSION=$(MODULE_VERSION)",
 					"PRODUCT_NAME=$(PRODUCT_NAME)",
@@ -421,7 +403,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.2.0;
+				MODULE_VERSION = 1.2.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",

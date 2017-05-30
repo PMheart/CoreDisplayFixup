@@ -21,6 +21,6 @@ extern const size_t ADDPR(procInfoSize);
 
 
 enum : uint32_t {
-    SectionYosEC = 1,
-    SectionSie   = 2
+  SectionYosEC = 1,
+  SectionSie   = 2
 };

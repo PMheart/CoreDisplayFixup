@@ -13,62 +13,90 @@
 #include "IntelReslFixup.hpp"
 #include "NVReslFixup.hpp"
 
+KernelVersion kernMajorVersion = getKernelVersion();
 static NVRESL nvresl;
 extern "C" int version_minor;
 
+int getSystemMinorVersion() {
+  int sysMinorVersion = 0;
+    
+  if (kernMajorVersion == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
+    sysMinorVersion = version_minor - 1;
+  else // legacy versions
+    sysMinorVersion = version_minor;
+    
+  return sysMinorVersion;
+}
+
+// kernel versioning
+int sysMajorVersion = kernMajorVersion - 4;
+int kernMinorVersion = getSystemMinorVersion();
+int sysMinorVersion = kernMinorVersion;
 
 static void intelStart() {
-    KernelVersion kernMajorVer = getKernelVersion();
-    int kernMinorVersion = 0;
+  SYSLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
     
-    if (kernMajorVer == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
-        kernMinorVersion = version_minor - 1;
-    else // legacy versions
-        kernMinorVersion = version_minor;
+  if (kernMajorVersion == KernelVersion::Yosemite || kernMajorVersion == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
+    lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
+  else if (kernMajorVersion == KernelVersion::Sierra) // if 10.12.x
+    lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
+}
+
+static void nvStart() {
+  SYSLOG("cdf @ NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
     
-    SYSLOG("cdf @ Starting on macOS 10.%d.%d", kernMajorVer - 4, kernMinorVersion);
-    
-    if (kernMajorVer == KernelVersion::Yosemite || kernMajorVer == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
-        lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-    else if (kernMajorVer == KernelVersion::Sierra) // if 10.12.x
-        lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
+  nvresl.init();
 }
 
 static void cdfStart() {
+
+  // check boot-args
+  char tmp[16];
+  bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
+  bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
+  
+  if (!bootargIntelOFF)
     intelStart();
-    nvresl.init();
+  
+  if (!bootargNVOFF)
+    nvStart();
 }
 
-// kext flag to unload CoreDisplayFixup
-static const char *bootargOff[] = { "-cdfoff" };
+static const char *bootargOff[] = {
+  "-cdfoff"
+  // add more args here...
+};
 
-// kext flag to enable debug logging of CoreDisplayFixup
-// (only available while CDF is accompanied by debug build Lilu)
-static const char *bootargDebug[] = { "-cdfdbg" };
+static const char *bootargDebug[] = {
+  "-cdfdbg"
+  // add more args here...
+};
 
-// kext flag to load CoreDisplayFixup regardless of darwin version
-static const char *bootargBeta[] = { "-cdfbeta" };
+static const char *bootargBeta[] = {
+  "-cdfbeta"
+  // add more args here...
+};
 
 PluginConfiguration ADDPR(config)
 {
-    xStringify(PRODUCT_NAME),
+  xStringify(PRODUCT_NAME),
     
-    // Lilu 1.1.0 and greater compatibility
-    parseModuleVersion(xStringify(MODULE_VERSION)),
+  // Lilu 1.1.0 and greater compatibility
+  parseModuleVersion(xStringify(MODULE_VERSION)),
     
-    bootargOff,
-    sizeof(bootargOff)/sizeof(bootargOff[0]),
+  bootargOff,
+  sizeof(bootargOff)/sizeof(bootargOff[0]),
 
-    bootargDebug,
-    sizeof(bootargDebug)/sizeof(bootargDebug[0]),
+  bootargDebug,
+  sizeof(bootargDebug)/sizeof(bootargDebug[0]),
 
-    bootargBeta,
-    sizeof(bootargBeta)/sizeof(bootargBeta[0]),
+  bootargBeta,
+  sizeof(bootargBeta)/sizeof(bootargBeta[0]),
     
-    // minKernel
-    KernelVersion::Yosemite,
-    // maxKernel
-    KernelVersion::Sierra,
+  // minKernel - 10.10
+  KernelVersion::Yosemite,
+  // maxKernel - 10.12
+  KernelVersion::Sierra,
     
-    cdfStart
+  cdfStart
 };
