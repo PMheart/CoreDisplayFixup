@@ -56,9 +56,13 @@ static void cdfStart() {
   
   if (!bootargIntelOFF)
     intelStart();
+  else
+    SYSLOG("cdf @ IntelPatcher is disabled by \"-cdfinteloff\"");
   
   if (!bootargNVOFF)
     nvStart();
+  else
+    SYSLOG("cdf @ NVPatcher is disabled by \"-cdfnvoff\"");
 }
 
 static const char *bootargOff[] = {
