@@ -35,6 +35,6 @@ mv $VERSION.RELEASE.zip ../..
 
 cd ../.. && rm -r build 
 
-open ../..
+open .
 
 exit 0
