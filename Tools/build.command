@@ -8,8 +8,13 @@
 cd "$(dirname "$0")"/..
 
 if [[ ! -d Lilu.kext ]]; then
-  echo "Lilu.kext not found"
-  exit 1
+  echo "Lilu.kext not found at repo dir, trying desktop"
+  if [[ -d ~/Desktop/Lilu.kext ]]; then
+    mv ~/Desktop/Lilu.kext Lilu.kext
+  else
+    echo "Lilu.kext still not found, exiting..."
+    exit 1
+  fi
 fi
 
 TARGET=("Debug" "Release")
@@ -29,3 +34,7 @@ zip -qr $VERSION.RELEASE.zip CoreDisplayFixup.kext
 mv $VERSION.RELEASE.zip ../..
 
 cd ../.. && rm -r build 
+
+open ../..
+
+exit 0
