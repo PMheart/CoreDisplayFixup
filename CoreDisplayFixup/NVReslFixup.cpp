@@ -2,7 +2,6 @@
 //  NVReslFixup.cpp
 //  CoreDisplayFixup
 //
-//  Created by Vanilla on 5/28/17.
 //  Copyright © 2017 Vanilla. All rights reserved.
 //
 //  This kext is made based on lvs1974's NvidiaGraphicsFixup.

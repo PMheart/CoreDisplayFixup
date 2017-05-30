@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83088FD91EDD55EC00639B64 /* build.command in Resources */ = {isa = PBXBuildFile; fileRef = 83088FD81EDD55EC00639B64 /* build.command */; };
 		835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835728261EDA865500D7A536 /* NVReslFixup.cpp */; };
 		837F736A1EDC94F200DFB50F /* IntelReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */; };
 		837F736B1EDC94F600DFB50F /* NVReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVReslFixup.hpp */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83088FD81EDD55EC00639B64 /* build.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.command; sourceTree = "<group>"; };
 		835728261EDA865500D7A536 /* NVReslFixup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVReslFixup.cpp; sourceTree = "<group>"; };
 		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
 		836374E81EDCEA7D002FD1DA /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83088FD71EDD55EC00639B64 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				83088FD81EDD55EC00639B64 /* build.command */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		8340779B1EDAA07C00F2A038 /* IntelPatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 			children = (
 				836374E71EDCEA64002FD1DA /* Docs */,
 				83BA0FE71E87C98D00D2F884 /* SDK */,
+				83088FD71EDD55EC00639B64 /* Tools */,
 				83BA0FDA1E87C89F00D2F884 /* CoreDisplayFixup */,
 				83BA0FD91E87C89F00D2F884 /* Products */,
 			);
@@ -240,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83088FD91EDD55EC00639B64 /* build.command in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
