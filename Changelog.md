@@ -3,6 +3,7 @@ CoreDisplayFixup Changelog
 #### v1.2.3
 - Use getKernelMinorVersion() from Lilu to gather kernel minor version
 - Changed some logics of NVPatcher to improve reliability
+- Fixed kextListSize
 
 #### v1.2.2
 - Added ``Maxwell`` and ``Pascal`` support for NVPatcher
