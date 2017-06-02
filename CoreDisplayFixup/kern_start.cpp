@@ -14,11 +14,10 @@
 #include "NVReslFixup.hpp"
 
 static NVRESL nvresl;
-extern "C" int version_minor;
 
 // kernel versioning
 static KernelVersion kernMajorVersion;
-static int kernMinorVersion;
+static KernelMinorVersion kernMinorVersion;
 static int sysMajorVersion;
 static int sysMinorVersion;
 
@@ -26,8 +25,8 @@ static void setSystemVersions() {
   kernMajorVersion = getKernelVersion();
   sysMajorVersion = kernMajorVersion - 4;
   
-  kernMinorVersion = version_minor;
-  if (kernMajorVersion == KernelVersion::Sierra && version_minor > 2) // 10.12.2+
+  kernMinorVersion = getKernelMinorVersion();
+  if (kernMajorVersion == KernelVersion::Sierra && kernMinorVersion > 2) // 10.12.2+
     sysMinorVersion = kernMinorVersion - 1;
   else // legacy versions
     sysMinorVersion = kernMinorVersion;

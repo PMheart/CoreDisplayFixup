@@ -2,7 +2,7 @@ CoreDisplayFixup Installation & Usage
 ======================================
 
 #### Installation
-It's highly recommended to let the bootloader inject CoreDisplayFixup, otherwise it may rarely fail.
+It's highly recommended to let the bootloader inject CoreDisplayFixup, otherwise you'll need [LiluFriend](https://github.com/PMheart/LiluFriend) to ensure CoreDisplayFixup will work properly.
 
 #### Available kernel flags
 Add `-cdfdbg` to enable debug logging (ONLY available in DEBUG binaries).

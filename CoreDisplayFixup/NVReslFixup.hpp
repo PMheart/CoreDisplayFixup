@@ -53,7 +53,7 @@ private:
       NVGK100WebReslPatched = 2,
       NVGM100ReslPatched    = 4,
       NVGP100ReslPatched    = 8,
-      AnythingDone = NVGK100ReslPatched | NVGK100WebReslPatched | NVGM100ReslPatched | NVGP100ReslPatched,
+      EverythingDone = NVGK100ReslPatched | NVGK100WebReslPatched | NVGM100ReslPatched | NVGP100ReslPatched,
     };
   };
   

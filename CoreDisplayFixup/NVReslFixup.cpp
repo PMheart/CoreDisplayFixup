@@ -73,11 +73,11 @@ bool NVRESL::init() {
 }
 
 void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
-  if (!(progressState & ProcessingState::AnythingDone)) {
+  if (progressState != ProcessingState::EverythingDone) {
     for (size_t i = 0; i < kextListSize; i++) {
       if (kextList[i].loadIndex == index) {
         // Patches for Kepler system built-in drivers
-        if (!strcmp(kextList[i].id, "com.apple.nvidia.driver.NVDAGK100Hal")) {
+        if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, "com.apple.nvidia.driver.NVDAGK100Hal")) {
           DBGLOG("cdf @ NVPatcher found com.apple.nvidia.driver.NVDAGK100Hal");
 
           KextPatch gk100_kext_patch {
@@ -87,11 +87,11 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gk100_kext_patch, 1);
           progressState |= ProcessingState::NVGK100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGK100Hal");
-          break;
+          //break;
         }
         
         // Patches for Kepler web driver
-        if (!strcmp(kextList[i].id, "com.nvidia.web.NVDAGK100HalWeb")) {
+        if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGK100HalWeb")) {
           DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGK100HalWeb");
           
           KextPatch gk100web_kext_patch {
@@ -101,11 +101,11 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gk100web_kext_patch, 1);
           progressState |= ProcessingState::NVGK100WebReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGK100HalWeb");
-          break;
+          //break;
         }
         
         // Patches for Maxwell
-        if (!strcmp(kextList[i].id, "com.nvidia.web.NVDAGM100HalWeb")) {
+        if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGM100HalWeb")) {
           DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGM100HalWeb");
         
           KextPatch gm100_kext_patch {
@@ -115,11 +115,11 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gm100_kext_patch, 1);
           progressState |= ProcessingState::NVGM100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGM100HalWeb");
-          break;
+          //break;
         }
       
         // Patches for Pascal
-        if (!strcmp(kextList[i].id, "com.nvidia.web.NVDAGP100HalWeb")) {
+        if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGP100HalWeb")) {
           DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGP100HalWeb");
         
           KextPatch gp100_kext_patch {
@@ -129,7 +129,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gp100_kext_patch, 1);
           progressState |= ProcessingState::NVGP100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGP100HalWeb version 1");
-          break;
+          //break;
         }
       }
     }
