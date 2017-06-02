@@ -40,7 +40,7 @@ static KernelPatcher::KextInfo kextList[] {
   { "com.nvidia.web.NVDAGP100HalWeb", kextNVDAGP100HalWeb, 1, true, {}, KernelPatcher::KextInfo::Unloaded },
 };
 
-static size_t kextListSize {3};
+static size_t kextListSize {4};
 
 // Patches
 // for NVDAGK100Hal and NVDAGK100HalWeb
