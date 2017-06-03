@@ -11,6 +11,6 @@ Add `-cdfoff` to disable CoreDisplayFixup entirely.
 
 Add `-cdfinteloff` to disable IntelPatcher, which cancels patching `IOKit` or `CoreDisplay`.
 
-Add `-cdfnvoff` to disable NVPatcher that cancels patching `NVDAGK100Hal`.
+Add `-cdfnvoff` to disable NVPatcher that cancels patching NVidia related kexts.
 
 Add `-cdfbeta` to enable CoreDisplayFixup on unsupported OS versions.
