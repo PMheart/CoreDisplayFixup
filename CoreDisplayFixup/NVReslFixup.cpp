@@ -128,7 +128,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           };
           applyPatches(patcher, index, &gp100_kext_patch, 1);
           progressState |= ProcessingState::NVGP100ReslPatched;
-          DBGLOG("cdf @ NVPatcher patched NVDAGP100HalWeb version 1");
+          DBGLOG("cdf @ NVPatcher patched NVDAGP100HalWeb");
           //break;
         }
       }

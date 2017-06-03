@@ -68,17 +68,14 @@ static void cdfStart() {
 
 static const char *bootargOff[] = {
   "-cdfoff"
-  // add more args here...
 };
 
 static const char *bootargDebug[] = {
   "-cdfdbg"
-  // add more args here...
 };
 
 static const char *bootargBeta[] = {
   "-cdfbeta"
-  // add more args here...
 };
 
 PluginConfiguration ADDPR(config)
