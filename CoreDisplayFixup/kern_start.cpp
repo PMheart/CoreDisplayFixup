@@ -37,8 +37,8 @@ static void intelStart() {
     
   if (kernMajorVersion == KernelVersion::Yosemite || kernMajorVersion == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
     lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-  else if (kernMajorVersion == KernelVersion::Sierra) // if 10.12.x
-    lilu.onProcLoad(ADDPR(procInfoSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
+  else if (kernMajorVersion == KernelVersion::Sierra || kernMajorVersion == KernelVersion::HighSierra) // if 10.12.x or 10.13.x
+    lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
 }
 
 static void nvStart() {

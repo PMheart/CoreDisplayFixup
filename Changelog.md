@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.2.4
+- Added macOS High Sierra compatibility
+
 #### v1.2.3
 - Use getKernelMinorVersion() from Lilu to gather kernel minor version
 - Changed some logics of NVPatcher to improve reliability

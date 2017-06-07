@@ -16,7 +16,7 @@ extern const size_t ADDPR(binaryModSize);
 
 // process
 extern UserPatcher::ProcInfo ADDPR(procInfoYosEC)[];
-extern UserPatcher::ProcInfo ADDPR(procInfoSie)[];
+extern UserPatcher::ProcInfo ADDPR(procInfoSieHigh)[];
 extern const size_t ADDPR(procInfoSize);
 
 

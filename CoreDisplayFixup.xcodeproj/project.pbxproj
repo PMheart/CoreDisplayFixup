@@ -370,7 +370,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.2.3;
+				MODULE_VERSION = 1.2.4;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -415,7 +415,7 @@
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.2.3;
+				MODULE_VERSION = 1.2.4;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",

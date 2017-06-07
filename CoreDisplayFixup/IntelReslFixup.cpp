@@ -69,7 +69,7 @@ UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
   procList[0], 83, SectionYosEC
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSie)[] {
+UserPatcher::ProcInfo ADDPR(procInfoSieHigh)[] {
   procList[1], 86, SectionSie
 };
 
