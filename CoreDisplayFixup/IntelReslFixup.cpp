@@ -70,7 +70,7 @@ UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
 };
 
 UserPatcher::ProcInfo ADDPR(procInfoSieHigh)[] {
-  procList[1], 86, SectionSie
+  procList[1], 86, SectionSieHS
 };
 
 const size_t ADDPR(procInfoSize) {1};

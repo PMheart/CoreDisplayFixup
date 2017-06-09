@@ -96,8 +96,8 @@ PluginConfiguration ADDPR(config)
     
   // minKernel - 10.10
   KernelVersion::Yosemite,
-  // maxKernel - 10.12
-  KernelVersion::Sierra,
+  // maxKernel - 10.13
+  KernelVersion::HighSierra,
     
   cdfStart
 };
