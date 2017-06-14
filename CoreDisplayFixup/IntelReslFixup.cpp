@@ -23,8 +23,8 @@ static const uint8_t findBuf[bufSize] {
 };
 
 static const uint8_t replBuf[bufSize] {
-  0x33, 0xC0,                                     // xor eax, eax    ; 0
-  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90,       // 7x nop          ; placeholders
+  0x48, 0x33, 0xC0,                               // xor eax, eax    ; 0
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90,             // 6x nop          ; placeholders
   0xE9                                            // jmp "somewhere" ; Don't care for the exact offset!
 };
 
