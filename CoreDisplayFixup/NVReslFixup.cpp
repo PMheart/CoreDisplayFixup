@@ -8,39 +8,42 @@
 //
 
 #include <Headers/kern_api.hpp>
-#include <Headers/kern_util.hpp>
-#include <Library/LegacyIOService.h>
-
-#include <mach/vm_map.h>
-#include <IOKit/IORegistryEntry.h>
 
 #include "NVReslFixup.hpp"
+#include "PrivateAPI.h"
+
+#define kGK100org 0
+#define kGK100web 1
+#define kGM100web 2
+#define kGP100web 3
 
 // MARK:
 // NVDAGK100Hal    - system built-in, might be for Kepler?
 // NVDAGM100HalWeb - inside web driver, for Maxwell
 // NVDAGP100HalWeb - inside web driver, for Pascal
-static const char *kextNVDAGK100Hal[] {
-  "/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal"
+
+static const char *idList[] {
+  "com.apple.nvidia.driver.NVDAGK100Hal",
+  "com.nvidia.web.NVDAGK100HalWeb",
+  "com.nvidia.web.NVDAGM100HalWeb",
+  "com.nvidia.web.NVDAGP100HalWeb"
 };
-static const char *kextNVDAGK100HalWeb[] {
-  "/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb"
-};
-static const char *kextNVDAGM100HalWeb[] {
-  "/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb"
-};
-static const char *kextNVDAGP100HalWeb[] {
+
+static const char *binList[] {
+  "/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal",
+  "/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
+  "/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
   "/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
 };
 
 static KernelPatcher::KextInfo kextList[] {
-  { "com.apple.nvidia.driver.NVDAGK100Hal", kextNVDAGK100Hal, 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { "com.nvidia.web.NVDAGK100HalWeb", kextNVDAGK100HalWeb, 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { "com.nvidia.web.NVDAGM100HalWeb", kextNVDAGM100HalWeb, 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { "com.nvidia.web.NVDAGP100HalWeb", kextNVDAGP100HalWeb, 1, true, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGK100org], &binList[kGK100org], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGK100web], &binList[kGK100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGM100web], &binList[kGM100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGP100web], &binList[kGP100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
 };
 
-static size_t kextListSize {4};
+static size_t kextListSize = getArrayLength(kextList);
 
 // Patches
 // for NVDAGK100Hal and NVDAGK100HalWeb
@@ -61,9 +64,10 @@ static const uint8_t gmp100_repl[] = { 0x00, 0x35, 0x0C, 0x00 };
 bool NVRESL::init() {
   LiluAPI::Error error = lilu.onKextLoad(kextList, kextListSize,
                                          [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
-                                           NVRESL *nvresl = static_cast<NVRESL *>(user);
-                                           nvresl->processKext(patcher, index, address, size);
-                                         }, this);
+    NVRESL *nvresl = static_cast<NVRESL *>(user);
+    nvresl->processKext(patcher, index, address, size);
+  }, this);
+  
   if (error != LiluAPI::Error::NoError) {
     SYSLOG("cdf @ NVPatcher failed to register onPatcherLoad method %d", error);
     return false;
@@ -87,7 +91,6 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gk100_kext_patch, 1);
           progressState |= ProcessingState::NVGK100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGK100Hal");
-          //break;
         }
         
         // Patches for Kepler web driver
@@ -101,7 +104,6 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gk100web_kext_patch, 1);
           progressState |= ProcessingState::NVGK100WebReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGK100HalWeb");
-          //break;
         }
         
         // Patches for Maxwell
@@ -115,7 +117,6 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gm100_kext_patch, 1);
           progressState |= ProcessingState::NVGM100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGM100HalWeb");
-          //break;
         }
       
         // Patches for Pascal
@@ -129,7 +130,6 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           applyPatches(patcher, index, &gp100_kext_patch, 1);
           progressState |= ProcessingState::NVGP100ReslPatched;
           DBGLOG("cdf @ NVPatcher patched NVDAGP100HalWeb");
-          //break;
         }
       }
     }

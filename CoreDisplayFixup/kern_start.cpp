@@ -26,9 +26,9 @@ static void setSystemVersions() {
   sysMajorVersion = kernMajorVersion - 4;
   
   kernMinorVersion = getKernelMinorVersion();
-  if (kernMajorVersion == KernelVersion::Sierra && kernMinorVersion > 2) // 10.12.2+
+  if (kernMajorVersion == KernelVersion::Sierra && kernMinorVersion > 2) // 10.12.x && 10.12.2+
     sysMinorVersion = kernMinorVersion - 1;
-  else // legacy versions
+  else // older versions or 10.13+
     sysMinorVersion = kernMinorVersion;
 }
 
@@ -38,7 +38,9 @@ static void intelStart() {
   if (kernMajorVersion == KernelVersion::Yosemite || kernMajorVersion == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
     lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
   else if (kernMajorVersion == KernelVersion::Sierra || kernMajorVersion == KernelVersion::HighSierra) // if 10.12.x or 10.13.x
-    lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSie), ADDPR(binaryModSize));
+    lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
+  else
+    SYSLOG("brcm @ loaded on unsupported macOS");
 }
 
 static void nvStart() {

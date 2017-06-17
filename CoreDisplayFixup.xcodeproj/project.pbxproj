@@ -44,6 +44,7 @@
 		83BA0FF61E87C99D00D2F884 /* LegacyIOService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyIOService.h; sourceTree = "<group>"; };
 		83BA0FF71E87C99D00D2F884 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libkmod.a; sourceTree = "<group>"; };
 		83BA0FF81E87C99D00D2F884 /* plugin_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plugin_start.cpp; sourceTree = "<group>"; };
+		83FEE2231EF54D6600F46D17 /* PrivateAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateAPI.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */,
+				83FEE2231EF54D6600F46D17 /* PrivateAPI.h */,
 				8340779B1EDAA07C00F2A038 /* IntelPatcher */,
 				8340779C1EDAA08A00F2A038 /* NVPatcher */,
 			);
