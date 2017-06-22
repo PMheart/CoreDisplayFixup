@@ -10,6 +10,7 @@
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
+#include "PrivateAPI.h"
 #include "IntelReslFixup.hpp"
 #include "NVReslFixup.hpp"
 
@@ -40,19 +41,18 @@ static void intelStart() {
   else if (kernMajorVersion == KernelVersion::Sierra || kernMajorVersion == KernelVersion::HighSierra) // if 10.12.x or 10.13.x
     lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
   else
-    SYSLOG("brcm @ loaded on unsupported macOS");
+    SYSLOG("cdf @ loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
 }
 
 static void nvStart() {
   SYSLOG("cdf @ NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
-    
   nvresl.init();
 }
 
 static void cdfStart() {
   setSystemVersions();
   
-  // check boot-args
+  // check disabling boot-args
   char tmp[16];
   bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
   bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
@@ -88,13 +88,13 @@ PluginConfiguration ADDPR(config)
   parseModuleVersion(xStringify(MODULE_VERSION)),
     
   bootargOff,
-  sizeof(bootargOff)/sizeof(bootargOff[0]),
+  getArrayLength(bootargOff),
 
   bootargDebug,
-  sizeof(bootargDebug)/sizeof(bootargDebug[0]),
+  getArrayLength(bootargDebug),
 
   bootargBeta,
-  sizeof(bootargBeta)/sizeof(bootargBeta[0]),
+  getArrayLength(bootargBeta),
     
   // minKernel - 10.10
   KernelVersion::Yosemite,

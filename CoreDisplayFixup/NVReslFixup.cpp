@@ -21,7 +21,6 @@
 // NVDAGK100Hal    - system built-in, might be for Kepler?
 // NVDAGM100HalWeb - inside web driver, for Maxwell
 // NVDAGP100HalWeb - inside web driver, for Pascal
-
 static const char *idList[] {
   "com.apple.nvidia.driver.NVDAGK100Hal",
   "com.nvidia.web.NVDAGK100HalWeb",
@@ -81,8 +80,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
     for (size_t i = 0; i < kextListSize; i++) {
       if (kextList[i].loadIndex == index) {
         // Patches for Kepler system built-in drivers
-        if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, "com.apple.nvidia.driver.NVDAGK100Hal")) {
-          DBGLOG("cdf @ NVPatcher found com.apple.nvidia.driver.NVDAGK100Hal");
+        if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, idList[kGK100org])) {
+          DBGLOG("cdf @ NVPatcher found %s", idList[kGK100org]);
 
           KextPatch gk100_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
@@ -94,8 +93,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         }
         
         // Patches for Kepler web driver
-        if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGK100HalWeb")) {
-          DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGK100HalWeb");
+        if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, idList[kGK100web])) {
+          DBGLOG("cdf @ NVPatcher found %s", idList[kGK100web]);
           
           KextPatch gk100web_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
@@ -107,8 +106,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         }
         
         // Patches for Maxwell
-        if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGM100HalWeb")) {
-          DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGM100HalWeb");
+        if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, idList[kGM100web])) {
+          DBGLOG("cdf @ NVPatcher found %s", idList[kGM100web]);
         
           KextPatch gm100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
@@ -120,8 +119,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         }
       
         // Patches for Pascal
-        if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, "com.nvidia.web.NVDAGP100HalWeb")) {
-          DBGLOG("cdf @ NVPatcher found com.nvidia.web.NVDAGP100HalWeb");
+        if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, idList[kGP100web])) {
+          DBGLOG("cdf @ NVPatcher found %s", idList[kGP100web]);
         
           KextPatch gp100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 },
@@ -134,7 +133,6 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
       }
     }
   }
-  
   // Ignore all the errors for other processors
   patcher.clearError();
 }
