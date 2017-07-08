@@ -35,10 +35,12 @@ static void setSystemVersions() {
 
 static void intelStart() {
   SYSLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
-    
-  if (kernMajorVersion == KernelVersion::Yosemite || kernMajorVersion == KernelVersion::ElCapitan) // if 10.10.x or 10.11.x
+  // apply corresopnding patches
+  if (kernMajorVersion == KernelVersion::Yosemite ||
+      kernMajorVersion == KernelVersion::ElCapitan)       // if 10.10.x or 10.11.x
     lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-  else if (kernMajorVersion == KernelVersion::Sierra || kernMajorVersion == KernelVersion::HighSierra) // if 10.12.x or 10.13.x
+  else if (kernMajorVersion == KernelVersion::Sierra ||
+           kernMajorVersion == KernelVersion::HighSierra) // else if 10.12.x or 10.13.x
     lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
   else
     SYSLOG("cdf @ loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
@@ -52,7 +54,7 @@ static void nvStart() {
 static void cdfStart() {
   setSystemVersions();
   
-  // check disabling boot-args
+  // check patcher disabling boot-args
   char tmp[16];
   bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
   bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
@@ -80,8 +82,7 @@ static const char *bootargBeta[] = {
   "-cdfbeta"
 };
 
-PluginConfiguration ADDPR(config)
-{
+PluginConfiguration ADDPR(config) {
   xStringify(PRODUCT_NAME),
     
   // Lilu 1.1.0 and greater compatibility
@@ -100,6 +101,6 @@ PluginConfiguration ADDPR(config)
   KernelVersion::Yosemite,
   // maxKernel - 10.13
   KernelVersion::HighSierra,
-    
+  // let's start right now
   cdfStart
 };

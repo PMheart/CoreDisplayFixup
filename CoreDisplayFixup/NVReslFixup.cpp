@@ -12,13 +12,15 @@
 #include "NVReslFixup.hpp"
 #include "PrivateAPI.h"
 
+// macros for following arrays
 #define kGK100org 0
 #define kGK100web 1
 #define kGM100web 2
 #define kGP100web 3
 
 // MARK:
-// NVDAGK100Hal    - system built-in, might be for Kepler?
+// NVDAGK100Hal    - system built-in,   for Kepler?
+// NVDAGK100HalWeb - inside web driver, for Kepler
 // NVDAGM100HalWeb - inside web driver, for Maxwell
 // NVDAGP100HalWeb - inside web driver, for Pascal
 static const char *idList[] {
@@ -44,22 +46,6 @@ static KernelPatcher::KextInfo kextList[] {
 
 static size_t kextListSize = getArrayLength(kextList);
 
-// Patches
-// for NVDAGK100Hal and NVDAGK100HalWeb
-//
-// Reference:
-// https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/NVIDIA-patcher.command
-//
-static const uint8_t gk100_find[] = { 0x88, 0x84, 0x02, 0x00 };
-static const uint8_t gk100_repl[] = { 0x80, 0x1A, 0x06, 0x00 };
-// for NVDAGM100HalWeb and NVDAGP100HalWeb
-//
-// Reference:
-// https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/NVIDIA-WEB-MAXWELL-patcher.command
-//
-static const uint8_t gmp100_find[] = { 0x88, 0x84, 0x02, 0x00 };
-static const uint8_t gmp100_repl[] = { 0x00, 0x35, 0x0C, 0x00 };
-
 bool NVRESL::init() {
   LiluAPI::Error error = lilu.onKextLoad(kextList, kextListSize,
                                          [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
@@ -76,6 +62,22 @@ bool NVRESL::init() {
 }
 
 void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
+  // Patches
+  // for NVDAGK100Hal and NVDAGK100HalWeb
+  //
+  // Reference:
+  // https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/NVIDIA-patcher.command
+  //
+  static const uint8_t gk100_find[] = { 0x88, 0x84, 0x02, 0x00 };
+  static const uint8_t gk100_repl[] = { 0x80, 0x1A, 0x06, 0x00 };
+  // for NVDAGM100HalWeb and NVDAGP100HalWeb
+  //
+  // Reference:
+  // https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/NVIDIA-WEB-MAXWELL-patcher.command
+  //
+  static const uint8_t gmp100_find[] = { 0x88, 0x84, 0x02, 0x00 };
+  static const uint8_t gmp100_repl[] = { 0x00, 0x35, 0x0C, 0x00 };
+  
   if (progressState != ProcessingState::EverythingDone) {
     for (size_t i = 0; i < kextListSize; i++) {
       if (kextList[i].loadIndex == index) {
