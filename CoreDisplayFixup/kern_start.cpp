@@ -88,13 +88,13 @@ PluginConfiguration ADDPR(config)
   parseModuleVersion(xStringify(MODULE_VERSION)),
     
   bootargOff,
-  getArrayLength(bootargOff),
+  arrsize(bootargOff),
 
   bootargDebug,
-  getArrayLength(bootargDebug),
+  arrsize(bootargDebug),
 
   bootargBeta,
-  getArrayLength(bootargBeta),
+  arrsize(bootargBeta),
     
   // minKernel - 10.10
   KernelVersion::Yosemite,
