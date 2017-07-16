@@ -87,7 +87,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
 
           KextPatch gk100_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
-            KernelVersion::MountainLion, KernelVersion::HighSierra
+            KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100_kext_patch, 1);
           progressState |= ProcessingState::NVGK100ReslPatched;
@@ -100,7 +100,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           
           KextPatch gk100web_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
-            KernelVersion::MountainLion, KernelVersion::HighSierra
+            KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100web_kext_patch, 1);
           progressState |= ProcessingState::NVGK100WebReslPatched;
@@ -113,7 +113,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         
           KextPatch gm100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
-            KernelVersion::MountainLion, KernelVersion::HighSierra
+            KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gm100_kext_patch, 1);
           progressState |= ProcessingState::NVGM100ReslPatched;
@@ -126,7 +126,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         
           KextPatch gp100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 },
-            KernelVersion::MountainLion, KernelVersion::HighSierra
+            KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gp100_kext_patch, 1);
           progressState |= ProcessingState::NVGP100ReslPatched;

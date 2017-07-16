@@ -74,7 +74,7 @@ UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {         // 10.10.x and 10.11.x
   procList[0], 83, SectionYosEC
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSieHigh)[] {       // 10.12.x and 10.13.x
+UserPatcher::ProcInfo ADDPR(procInfoSinceSie)[] {       // 10.12.x and 10.13.x
   procList[1], 86, SectionSieHS
 };
 

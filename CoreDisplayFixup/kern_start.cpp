@@ -40,8 +40,8 @@ static void intelStart() {
       kernMajorVersion == KernelVersion::ElCapitan)       // if 10.10.x or 10.11.x
     lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
   else if (kernMajorVersion == KernelVersion::Sierra ||
-           kernMajorVersion == KernelVersion::HighSierra) // else if 10.12.x or 10.13.x
-    lilu.onProcLoad(ADDPR(procInfoSieHigh), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
+           kernMajorVersion == KernelPatcher::KernelAny) // else if 10.12.x or greater
+    lilu.onProcLoad(ADDPR(procInfoSinceSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
   else
     SYSLOG("cdf @ loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
 }
