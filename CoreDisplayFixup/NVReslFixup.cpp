@@ -44,7 +44,7 @@ static KernelPatcher::KextInfo kextList[] {
   { idList[kGP100web], &binList[kGP100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
 };
 
-static size_t kextListSize = getArrayLength(kextList);
+static size_t kextListSize = arrsize(kextList);
 
 bool NVRESL::init() {
   LiluAPI::Error error = lilu.onKextLoad(kextList, kextListSize,

@@ -45,7 +45,7 @@ static const uint8_t replBuf[] {
   0xE9                                            // jmp "somewhere"   ; Don't care for the exact offset!
 };
 
-static const size_t bufSize = getArrayLength(findBuf);
+static const size_t bufSize = arrsize(findBuf);
 
 
 static UserPatcher::BinaryModPatch genericPatch {
