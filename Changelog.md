@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.2.5
+- Enlarged compatibility
+
 #### v1.2.4
 - Added macOS High Sierra compatibility
 
