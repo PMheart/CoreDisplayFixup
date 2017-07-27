@@ -10,7 +10,6 @@
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
-#include "PrivateAPI.h"
 #include "IntelReslFixup.hpp"
 #include "NVReslFixup.hpp"
 

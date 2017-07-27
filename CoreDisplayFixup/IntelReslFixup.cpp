@@ -8,7 +8,6 @@
 //
 
 #include "IntelReslFixup.hpp"
-#include "PrivateAPI.h"
 
 // target frameworks
 static const char *binaryList[] {

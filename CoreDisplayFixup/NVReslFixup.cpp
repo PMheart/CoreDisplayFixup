@@ -10,7 +10,6 @@
 #include <Headers/kern_api.hpp>
 
 #include "NVReslFixup.hpp"
-#include "PrivateAPI.h"
 
 // macros for following arrays
 #define kGK100org 0
