@@ -70,7 +70,8 @@ static void cdfStart() {
 }
 
 static const char *bootargOff[] = {
-  "-cdfoff"
+  "-cdfoff",
+  "-x"
 };
 
 static const char *bootargDebug[] = {
