@@ -83,7 +83,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         // Patches for Kepler system built-in drivers
         if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, idList[kGK100org])) {
           DBGLOG("cdf @ NVPatcher found %s", idList[kGK100org]);
-
+          patcher.clearError();
           KextPatch gk100_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
             KernelVersion::MountainLion, KernelPatcher::KernelAny
@@ -96,7 +96,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         // Patches for Kepler web driver
         if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, idList[kGK100web])) {
           DBGLOG("cdf @ NVPatcher found %s", idList[kGK100web]);
-          
+          patcher.clearError();
           KextPatch gk100web_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
             KernelVersion::MountainLion, KernelPatcher::KernelAny
@@ -109,7 +109,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         // Patches for Maxwell
         if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, idList[kGM100web])) {
           DBGLOG("cdf @ NVPatcher found %s", idList[kGM100web]);
-        
+          patcher.clearError();
           KextPatch gm100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
             KernelVersion::MountainLion, KernelPatcher::KernelAny
@@ -122,7 +122,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
         // Patches for Pascal
         if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, idList[kGP100web])) {
           DBGLOG("cdf @ NVPatcher found %s", idList[kGP100web]);
-        
+          patcher.clearError();
           KextPatch gp100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 },
             KernelVersion::MountainLion, KernelPatcher::KernelAny
