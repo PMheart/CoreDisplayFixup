@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.2.7
+- Clear error every time just in case
+
 #### v1.2.6
 - Added Lilu 1.1.8 safe mode loading compatibility
 
