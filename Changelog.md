@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.2.8
+- Fix for macOS v10.13
+
 #### v1.2.7
 - Clear error every time just in case
 

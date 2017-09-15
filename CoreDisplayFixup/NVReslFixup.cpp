@@ -18,7 +18,7 @@
 #define kGP100web 3
 
 // MARK:
-// NVDAGK100Hal    - system built-in,   for Kepler?
+// NVDAGK100Hal    - system built-in,   for Kepler
 // NVDAGK100HalWeb - inside web driver, for Kepler
 // NVDAGM100HalWeb - inside web driver, for Maxwell
 // NVDAGP100HalWeb - inside web driver, for Pascal
@@ -124,7 +124,7 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           DBGLOG("cdf @ NVPatcher found %s", idList[kGP100web]);
           patcher.clearError();
           KextPatch gp100_kext_patch {
-            { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 },
+            { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences to be replaced here!
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gp100_kext_patch, 1);

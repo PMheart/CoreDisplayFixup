@@ -11,12 +11,12 @@
 
 // binary
 extern UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[];
-extern UserPatcher::BinaryModInfo ADDPR(binaryModSieHigh)[];
+extern UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[];
 extern const size_t ADDPR(binaryModSize);
 
 // process
 extern UserPatcher::ProcInfo ADDPR(procInfoYosEC)[];
-extern UserPatcher::ProcInfo ADDPR(procInfoSinceSie)[];
+extern UserPatcher::ProcInfo ADDPR(procInfoSieHS)[];
 extern const size_t ADDPR(procInfoSize);
 
 

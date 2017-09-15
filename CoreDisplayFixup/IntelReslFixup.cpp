@@ -55,14 +55,14 @@ static UserPatcher::BinaryModPatch genericPatch {
   0,           // skip  = 0 -> replace all occurrences
   1,           // count = 1 -> 1 set of hex inside the target binaries
   UserPatcher::FileSegment::SegmentTextText,
-  SectionYosEC // 10.10.x till 10.12.x (all universal)
+  SectionYosEC // 10.10.x till 10.13.x (all universal)
 };
 
 UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {   // 10.10.x and 10.11.x
   binaryList[0], &genericPatch, 1
 };
 
-UserPatcher::BinaryModInfo ADDPR(binaryModSieHigh)[] { // 10.12.x and 10.13.x
+UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] { // 10.12.x and 10.13.x
   binaryList[1], &genericPatch, 1
 };
 
@@ -73,7 +73,7 @@ UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {         // 10.10.x and 10.11.x
   procList[0], 83, SectionYosEC
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSinceSie)[] {       // 10.12.x and 10.13.x
+UserPatcher::ProcInfo ADDPR(procInfoSieHS)[] {       // 10.12.x and 10.13.x
   procList[1], 86, SectionSieHS
 };
 

@@ -26,6 +26,7 @@ static void setSystemVersions() {
   sysMajorVersion = kernMajorVersion - 4;
   
   kernMinorVersion = getKernelMinorVersion();
+  // specific algogrithm to get kernel/system version of 10.12
   if (kernMajorVersion == KernelVersion::Sierra && kernMinorVersion > 2) // 10.12.x && 10.12.2+
     sysMinorVersion = kernMinorVersion - 1;
   else // older versions or 10.13+
@@ -33,20 +34,20 @@ static void setSystemVersions() {
 }
 
 static void intelStart() {
-  SYSLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
+  DBGLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
   // apply corresopnding patches
-  if (kernMajorVersion == KernelVersion::Yosemite ||
-      kernMajorVersion == KernelVersion::ElCapitan)       // if 10.10.x or 10.11.x
+  if (kernMajorVersion == KernelVersion::Yosemite ||      // 10.10.x
+      kernMajorVersion == KernelVersion::ElCapitan)       // 10.11.x
     lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-  else if (kernMajorVersion == KernelVersion::Sierra ||
-           kernMajorVersion == KernelPatcher::KernelAny) // else if 10.12.x or greater
-    lilu.onProcLoad(ADDPR(procInfoSinceSie), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHigh), ADDPR(binaryModSize));
-  else
+  else if (kernMajorVersion == KernelVersion::Sierra ||   // 10.12.x
+           kernMajorVersion == KernelVersion::HighSierra) // 10.13.x
+    lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
+  else  // unsupported
     SYSLOG("cdf @ loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
 }
 
 static void nvStart() {
-  SYSLOG("cdf @ NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
+  DBGLOG("cdf @ NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
   nvresl.init();
 }
 
@@ -87,13 +88,16 @@ PluginConfiguration ADDPR(config) {
     
   // Lilu 1.1.0 and greater compatibility
   parseModuleVersion(xStringify(MODULE_VERSION)),
-    
+  
+  // disabling args
   bootargOff,
   arrsize(bootargOff),
 
+  // debug logging args
   bootargDebug,
   arrsize(bootargDebug),
 
+  // enforcing args
   bootargBeta,
   arrsize(bootargBeta),
     
