@@ -86,6 +86,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           patcher.clearError();
           KextPatch gk100_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
+            // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
+          //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100_kext_patch, 1);
@@ -99,6 +101,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           patcher.clearError();
           KextPatch gk100web_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
+            // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
+          //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100web_kext_patch, 1);
@@ -112,6 +116,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           patcher.clearError();
           KextPatch gm100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
+            // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
+          //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gm100_kext_patch, 1);
@@ -125,6 +131,8 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
           patcher.clearError();
           KextPatch gp100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences to be replaced here!
+            // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
+          //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gp100_kext_patch, 1);
