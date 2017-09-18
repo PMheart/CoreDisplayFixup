@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.3.0
+- Requires Lilu 1.2.0 or higher
+
 #### v1.2.8
 - Fix for macOS v10.13
 
