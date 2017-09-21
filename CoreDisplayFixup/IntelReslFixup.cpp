@@ -59,22 +59,22 @@ static UserPatcher::BinaryModPatch genericPatch {
 };
 
 UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {   // 10.10.x and 10.11.x
-  binaryList[0], &genericPatch, 1
+  {binaryList[0], &genericPatch, 1}
 };
 
 UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] { // 10.12.x and 10.13.x
-  binaryList[1], &genericPatch, 1
+  {binaryList[1], &genericPatch, 1}
 };
 
 const size_t ADDPR(binaryModSize) = 1;
 
 
 UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {         // 10.10.x and 10.11.x
-  procList[0], 83, SectionYosEC
+  {procList[0], 83, SectionYosEC}
 };
 
 UserPatcher::ProcInfo ADDPR(procInfoSieHS)[] {       // 10.12.x and 10.13.x
-  procList[1], 86, SectionSieHS
+  {procList[1], 86, SectionSieHS}
 };
 
 const size_t ADDPR(procInfoSize) = 1;

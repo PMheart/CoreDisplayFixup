@@ -37,10 +37,10 @@ static const char *binList[] {
 };
 
 static KernelPatcher::KextInfo kextList[] {
-  { idList[kGK100org], &binList[kGK100org], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { idList[kGK100web], &binList[kGK100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { idList[kGM100web], &binList[kGM100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
-  { idList[kGP100web], &binList[kGP100web], 1, true, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGK100org], &binList[kGK100org], 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGK100web], &binList[kGK100web], 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGM100web], &binList[kGM100web], 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
+  { idList[kGP100web], &binList[kGP100web], 1, {true}, {}, KernelPatcher::KextInfo::Unloaded },
 };
 
 static size_t kextListSize = arrsize(kextList);
