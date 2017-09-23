@@ -53,7 +53,7 @@ bool NVRESL::init() {
   }, this);
   
   if (error != LiluAPI::Error::NoError) {
-    SYSLOG("cdf", "NVPatcher failed to register onPatcherLoad method %d", error);
+    SYSLOG("NVPatcher", "failed to register onPatcherLoad method %d", error);
     return false;
   }
   
@@ -82,62 +82,62 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
       if (kextList[i].loadIndex == index) {
         // Patches for Kepler system built-in drivers
         if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, idList[kGK100org])) {
-          DBGLOG("cdf", "NVPatcher found %s", idList[kGK100org]);
+          DBGLOG("NVPatcher", "found %s", idList[kGK100org]);
           patcher.clearError();
           KextPatch gk100_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
             // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
-          //KernelVersion::MountainLion, KernelVersion::HighSierra
+            //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100_kext_patch, 1);
           progressState |= ProcessingState::NVGK100ReslPatched;
-          DBGLOG("cdf", "NVPatcher patched NVDAGK100Hal");
+          DBGLOG("NVPatcher", "patched NVDAGK100Hal");
         }
         
         // Patches for Kepler web driver
         if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, idList[kGK100web])) {
-          DBGLOG("cdf", "NVPatcher found %s", idList[kGK100web]);
+          DBGLOG("NVPatcher", "found %s", idList[kGK100web]);
           patcher.clearError();
           KextPatch gk100web_kext_patch {
             { &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
             // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
-          //KernelVersion::MountainLion, KernelVersion::HighSierra
+            //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gk100web_kext_patch, 1);
           progressState |= ProcessingState::NVGK100WebReslPatched;
-          DBGLOG("cdf", "NVPatcher patched NVDAGK100HalWeb");
+          DBGLOG("NVPatcher", "patched NVDAGK100HalWeb");
         }
         
         // Patches for Maxwell
         if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, idList[kGM100web])) {
-          DBGLOG("cdf", "NVPatcher found %s", idList[kGM100web]);
+          DBGLOG("NVPatcher", "found %s", idList[kGM100web]);
           patcher.clearError();
           KextPatch gm100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
             // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
-          //KernelVersion::MountainLion, KernelVersion::HighSierra
+            //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gm100_kext_patch, 1);
           progressState |= ProcessingState::NVGM100ReslPatched;
-          DBGLOG("cdf", "NVPatcher patched NVDAGM100HalWeb");
+          DBGLOG("NVPatcher", "patched NVDAGM100HalWeb");
         }
       
         // Patches for Pascal
         if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, idList[kGP100web])) {
-          DBGLOG("cdf", "NVPatcher found %s", idList[kGP100web]);
+          DBGLOG("NVPatcher", "found %s", idList[kGP100web]);
           patcher.clearError();
           KextPatch gp100_kext_patch {
             { &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences to be replaced here!
             // FIXME: revert KernelPatcher::KernelAny back to KernelVersion::HighSierra
-          //KernelVersion::MountainLion, KernelVersion::HighSierra
+            //KernelVersion::MountainLion, KernelVersion::HighSierra
             KernelVersion::MountainLion, KernelPatcher::KernelAny
           };
           applyPatches(patcher, index, &gp100_kext_patch, 1);
           progressState |= ProcessingState::NVGP100ReslPatched;
-          DBGLOG("cdf", "NVPatcher patched NVDAGP100HalWeb");
+          DBGLOG("NVPatcher", "patched NVDAGP100HalWeb");
         }
       }
     }
@@ -147,12 +147,12 @@ void NVRESL::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t
 }
 
 void NVRESL::applyPatches(KernelPatcher &patcher, size_t index, const KextPatch *patches, size_t patchNum) {
-  DBGLOG("cdf", "NVPatcher applying patches for %zu kext", index);
+  DBGLOG("NVPatcher", "applying patches for %zu kext", index);
   for (size_t p = 0; p < patchNum; p++) {
     auto &patch = patches[p];
     if (patch.patch.kext->loadIndex == index) {
       if (patcher.compatibleKernel(patch.minKernel, patch.maxKernel)) {
-        DBGLOG("cdf", "NVPatcher applying %zu patch for %zu kext", p, index);
+        DBGLOG("NVPatcher", "applying %zu patch for %zu kext", p, index);
         patcher.applyLookupPatch(&patch.patch);
         // Do not really care for the errors for now
         patcher.clearError();
