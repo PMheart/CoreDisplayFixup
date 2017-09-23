@@ -34,7 +34,7 @@ static void setSystemVersions() {
 }
 
 static void intelStart() {
-  DBGLOG("cdf @ IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
+  DBGLOG("cdf", "IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
   // apply corresopnding patches
   if (kernMajorVersion == KernelVersion::Yosemite ||      // 10.10.x
       kernMajorVersion == KernelVersion::ElCapitan)       // 10.11.x
@@ -43,11 +43,11 @@ static void intelStart() {
            kernMajorVersion == KernelVersion::HighSierra) // 10.13.x
     lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
   else  // unsupported
-    SYSLOG("cdf @ loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
+    SYSLOG("cdf", "loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
 }
 
 static void nvStart() {
-  DBGLOG("cdf @ NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
+  DBGLOG("cdf", "NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
   nvresl.init();
 }
 
@@ -62,12 +62,12 @@ static void cdfStart() {
   if (!bootargIntelOFF)
     intelStart();
   else
-    SYSLOG("cdf @ IntelPatcher is disabled by kernel flag \"-cdfinteloff\"");
+    SYSLOG("cdf", "IntelPatcher is disabled by kernel flag \"-cdfinteloff\"");
   
   if (!bootargNVOFF)
     nvStart();
   else
-    SYSLOG("cdf @ NVPatcher is disabled by kernel flag \"-cdfnvoff\"");
+    SYSLOG("cdf", "NVPatcher is disabled by kernel flag \"-cdfnvoff\"");
 }
 
 static const char *bootargOff[] = {
