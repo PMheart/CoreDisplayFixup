@@ -72,7 +72,6 @@ static void cdfStart() {
 
 static const char *bootargOff[] = {
   "-cdfoff",
-  "-x"
 };
 
 static const char *bootargDebug[] = {
@@ -85,26 +84,15 @@ static const char *bootargBeta[] = {
 
 PluginConfiguration ADDPR(config) {
   xStringify(PRODUCT_NAME),
-    
-  // Lilu 1.1.0 and greater compatibility
   parseModuleVersion(xStringify(MODULE_VERSION)),
-  
-  // disabling args
+  LiluAPI::AllowNormal | LiluAPI::AllowInstallerRecovery,
   bootargOff,
   arrsize(bootargOff),
-
-  // debug logging args
   bootargDebug,
   arrsize(bootargDebug),
-
-  // enforcing args
   bootargBeta,
   arrsize(bootargBeta),
-    
-  // minKernel - 10.10
   KernelVersion::Yosemite,
-  // maxKernel - 10.13
   KernelVersion::HighSierra,
-  // let's start right now
   cdfStart
 };
