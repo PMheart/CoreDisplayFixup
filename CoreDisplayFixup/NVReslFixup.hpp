@@ -47,7 +47,7 @@ private:
    * Current progress mask
    */
   struct ProcessingState {
-    enum {
+    enum : uint32_t {
       NothingReady          = 0,
       NVGK100ReslPatched    = 1,
       NVGK100WebReslPatched = 2,
@@ -57,7 +57,7 @@ private:
     };
   };
   
-  int progressState = {ProcessingState::NothingReady};
+  uint32_t progressState = {ProcessingState::NothingReady};
 };
 
 #endif /* NVReslFixup_hpp */

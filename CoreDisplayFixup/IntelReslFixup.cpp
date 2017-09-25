@@ -58,23 +58,27 @@ static UserPatcher::BinaryModPatch genericPatch {
   SectionYosEC // 10.10.x till 10.13.x (all universal)
 };
 
-UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {   // 10.10.x and 10.11.x
-  {binaryList[0], &genericPatch, 1}
+UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {
+  // 10.10.x and 10.11.x
+  { binaryList[0], &genericPatch, 1 }
 };
 
-UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] { // 10.12.x and 10.13.x
-  {binaryList[1], &genericPatch, 1}
+UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] {
+  // 10.12.x and 10.13.x
+  { binaryList[1], &genericPatch, 1 }
 };
 
 const size_t ADDPR(binaryModSize) = 1;
 
 
-UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {         // 10.10.x and 10.11.x
-  {procList[0], 83, SectionYosEC}
+UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
+  // 10.10.x and 10.11.x
+  { procList[0], static_cast<uint32_t>(strlen(procList[0])), SectionYosEC }
 };
 
-UserPatcher::ProcInfo ADDPR(procInfoSieHS)[] {       // 10.12.x and 10.13.x
-  {procList[1], 86, SectionSieHS}
+UserPatcher::ProcInfo ADDPR(procInfoSieHS)[] {
+  // 10.12.x and 10.13.x
+  { procList[1], static_cast<uint32_t>(strlen(procList[1])), SectionSieHS }
 };
 
 const size_t ADDPR(procInfoSize) = 1;
