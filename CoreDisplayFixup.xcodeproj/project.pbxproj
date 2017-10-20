@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835728261EDA865500D7A536 /* NVReslFixup.cpp */; };
-		837F736A1EDC94F200DFB50F /* IntelReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */; };
-		837F736B1EDC94F600DFB50F /* NVReslFixup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVReslFixup.hpp */; };
-		83BA0FDE1E87C89F00D2F884 /* IntelReslFixup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */; };
+		835728281EDA865500D7A536 /* NVPatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835728261EDA865500D7A536 /* NVPatcher.cpp */; };
+		837F736A1EDC94F200DFB50F /* IntelPatcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 83BA0FDB1E87C89F00D2F884 /* IntelPatcher.hpp */; };
+		837F736B1EDC94F600DFB50F /* NVPatcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 835728271EDA865500D7A536 /* NVPatcher.hpp */; };
+		83BA0FDE1E87C89F00D2F884 /* IntelPatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FDD1E87C89F00D2F884 /* IntelPatcher.cpp */; };
 		83BA0FE61E87C8DE00D2F884 /* kern_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */; };
 		83BA10061E87C99D00D2F884 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0FF71E87C99D00D2F884 /* libkmod.a */; };
 		83BA10071E87C99D00D2F884 /* plugin_start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BA0FF81E87C99D00D2F884 /* plugin_start.cpp */; };
@@ -18,15 +18,15 @@
 
 /* Begin PBXFileReference section */
 		83088FD81EDD55EC00639B64 /* build.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = build.command; sourceTree = "<group>"; };
-		835728261EDA865500D7A536 /* NVReslFixup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVReslFixup.cpp; sourceTree = "<group>"; };
-		835728271EDA865500D7A536 /* NVReslFixup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVReslFixup.hpp; sourceTree = "<group>"; };
+		835728261EDA865500D7A536 /* NVPatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVPatcher.cpp; sourceTree = "<group>"; };
+		835728271EDA865500D7A536 /* NVPatcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NVPatcher.hpp; sourceTree = "<group>"; };
 		836374E81EDCEA7D002FD1DA /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		836374EA1EDCEA7D002FD1DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		837FE9341EDD0EB90055B9A9 /* Instructions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Instructions.md; sourceTree = "<group>"; };
 		838CF0581EDCEBD3001CF207 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		83BA0FD81E87C89F00D2F884 /* CoreDisplayFixup.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDisplayFixup.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = IntelReslFixup.hpp; sourceTree = "<group>"; tabWidth = 2; };
-		83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = IntelReslFixup.cpp; sourceTree = "<group>"; tabWidth = 2; wrapsLines = 1; };
+		83BA0FDB1E87C89F00D2F884 /* IntelPatcher.hpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = IntelPatcher.hpp; sourceTree = "<group>"; tabWidth = 2; };
+		83BA0FDD1E87C89F00D2F884 /* IntelPatcher.cpp */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = IntelPatcher.cpp; sourceTree = "<group>"; tabWidth = 2; wrapsLines = 1; };
 		83BA0FDF1E87C89F00D2F884 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BA0FE51E87C8DE00D2F884 /* kern_start.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = kern_start.cpp; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; wrapsLines = 1; };
 		83BA0FE91E87C99D00D2F884 /* kern_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kern_api.hpp; sourceTree = "<group>"; };
@@ -69,8 +69,8 @@
 		8340779B1EDAA07C00F2A038 /* IntelPatcher */ = {
 			isa = PBXGroup;
 			children = (
-				83BA0FDB1E87C89F00D2F884 /* IntelReslFixup.hpp */,
-				83BA0FDD1E87C89F00D2F884 /* IntelReslFixup.cpp */,
+				83BA0FDB1E87C89F00D2F884 /* IntelPatcher.hpp */,
+				83BA0FDD1E87C89F00D2F884 /* IntelPatcher.cpp */,
 			);
 			name = IntelPatcher;
 			sourceTree = "<group>";
@@ -78,8 +78,8 @@
 		8340779C1EDAA08A00F2A038 /* NVPatcher */ = {
 			isa = PBXGroup;
 			children = (
-				835728271EDA865500D7A536 /* NVReslFixup.hpp */,
-				835728261EDA865500D7A536 /* NVReslFixup.cpp */,
+				835728271EDA865500D7A536 /* NVPatcher.hpp */,
+				835728261EDA865500D7A536 /* NVPatcher.cpp */,
 			);
 			name = NVPatcher;
 			sourceTree = "<group>";
@@ -188,8 +188,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				837F736B1EDC94F600DFB50F /* NVReslFixup.hpp in Headers */,
-				837F736A1EDC94F200DFB50F /* IntelReslFixup.hpp in Headers */,
+				837F736B1EDC94F600DFB50F /* NVPatcher.hpp in Headers */,
+				837F736A1EDC94F200DFB50F /* IntelPatcher.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,8 +261,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BA0FE61E87C8DE00D2F884 /* kern_start.cpp in Sources */,
-				83BA0FDE1E87C89F00D2F884 /* IntelReslFixup.cpp in Sources */,
-				835728281EDA865500D7A536 /* NVReslFixup.cpp in Sources */,
+				83BA0FDE1E87C89F00D2F884 /* IntelPatcher.cpp in Sources */,
+				835728281EDA865500D7A536 /* NVPatcher.cpp in Sources */,
 				83BA10071E87C99D00D2F884 /* plugin_start.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,11 +378,11 @@
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.3.0;
+				MODULE_VERSION = 1.3.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",
@@ -423,11 +423,11 @@
 					"$(PROJECT_DIR)/Lilu.kext/Contents/Resources/Library",
 				);
 				LLVM_LTO = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULE_NAME = org.vanilla.driver.CoreDisplayFixup;
 				MODULE_START = "$(PRODUCT_NAME)_kern_start";
 				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
-				MODULE_VERSION = 1.3.0;
+				MODULE_VERSION = 1.3.1;
 				OTHER_CFLAGS = (
 					"-mmmx",
 					"-msse",

@@ -1,6 +1,9 @@
 CoreDisplayFixup Installation & Usage
 ======================================
 
+#### System Requirements
+CoreDisplayFixup needs macOS ***v10.10*** or greater.
+
 #### Installation
 It's highly recommended to let the bootloader inject CoreDisplayFixup, otherwise you'll need [LiluFriend](https://github.com/PMheart/LiluFriend) to ensure CoreDisplayFixup will work properly.
 
@@ -13,4 +16,4 @@ Add `-cdfinteloff` to disable IntelPatcher, which cancels patching `IOKit` or `C
 
 Add `-cdfnvoff` to disable NVPatcher that cancels patching NVidia related kexts.
 
-Add `-cdfbeta` to enable CoreDisplayFixup on unsupported OS versions.
+Add `-cdfbeta` to enable CoreDisplayFixup on unsupported OS versions (Not compatible with IntelPatcher).

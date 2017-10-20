@@ -1,5 +1,8 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.3.1
+- Various typo fixed
+
 #### v1.3.0
 - Requires Lilu 1.2.0 or higher
 

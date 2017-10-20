@@ -1,11 +1,14 @@
 //
-//  IntelReslFixup.hpp
-//  CoreDisplayFixup
+//  IntelPatcher.hpp
+//  IntelPatcher (CoreDisplayFixup)
 //
-//  Copyright © 2017 vit9696, Vanilla. All rights reserved.
+//  Copyright © 2017 Vanilla. All rights reserved.
 //
-//  This kext is made based on vit9696's Shiki, without his amazing repo it won't be here!
+//  This module is based on vit9696's Shiki.
 //
+
+#ifndef IntelPatcher_hpp
+#define IntelPatcher_hpp
 
 #include <Headers/kern_user.hpp>
 
@@ -21,6 +24,8 @@ extern const size_t ADDPR(procInfoSize);
 
 
 enum : uint32_t {
-  SectionYosEC   = 1,
-  SectionSieHS   = 2
+	SectionYosEC   = 1,
+	SectionSieHS   = 2
 };
+
+#endif /* IntelPatcher_hpp */

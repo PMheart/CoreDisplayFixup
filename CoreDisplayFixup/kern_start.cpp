@@ -10,89 +10,66 @@
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
-#include "IntelReslFixup.hpp"
-#include "NVReslFixup.hpp"
+#include "IntelPatcher.hpp"
+#include "NVPatcher.hpp"
 
-static NVRESL nvresl;
+static NVRESL nvPatcherStart;
 
-// kernel versioning
-static KernelVersion kernMajorVersion;
-static KernelMinorVersion kernMinorVersion;
-static int sysMajorVersion;
-static int sysMinorVersion;
-
-static void setSystemVersions() {
-  kernMajorVersion = getKernelVersion();
-  sysMajorVersion = kernMajorVersion - 4;
-  
-  kernMinorVersion = getKernelMinorVersion();
-  // specific algogrithm to get kernel/system version of 10.12
-  if (kernMajorVersion == KernelVersion::Sierra && kernMinorVersion > 2) // 10.12.x && 10.12.2+
-    sysMinorVersion = kernMinorVersion - 1;
-  else // older versions or 10.13+
-    sysMinorVersion = kernMinorVersion;
-}
-
-static void intelStart() {
-  DBGLOG("cdf", "IntelPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
-  // apply corresopnding patches
-  if (kernMajorVersion == KernelVersion::Yosemite ||      // 10.10.x
-      kernMajorVersion == KernelVersion::ElCapitan)       // 10.11.x
-    lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-  else if (kernMajorVersion == KernelVersion::Sierra ||   // 10.12.x
-           kernMajorVersion == KernelVersion::HighSierra) // 10.13.x
-    lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
-  else  // unsupported
-    SYSLOG("cdf", "loaded on unsupported macOS: 10.%d.%d", sysMajorVersion, sysMinorVersion);
-}
-
-static void nvStart() {
-  DBGLOG("cdf", "NVPatcher starting on macOS 10.%d.%d", sysMajorVersion, sysMinorVersion);
-  nvresl.init();
+static void intelPatcherStart() {
+	// apply corresopnding patches
+	if (getKernelVersion() == KernelVersion::Yosemite ||          // 10.10.x
+      getKernelVersion() == KernelVersion::ElCapitan) {         // 10.11.x
+		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
+	} else if (getKernelVersion() == KernelVersion::Sierra ||     // 10.12.x
+             getKernelVersion() == KernelVersion::HighSierra) { // 10.13.x
+		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
+  }
 }
 
 static void cdfStart() {
-  setSystemVersions();
-  
-  // check patcher disabling boot-args
-  char tmp[16];
-  bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
-  bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
-  
-  if (!bootargIntelOFF)
-    intelStart();
-  else
-    SYSLOG("cdf", "IntelPatcher is disabled by kernel flag \"-cdfinteloff\"");
-  
-  if (!bootargNVOFF)
-    nvStart();
-  else
-    SYSLOG("cdf", "NVPatcher is disabled by kernel flag \"-cdfnvoff\"");
+	// check patcher disabling boot-args
+	char tmp[16];
+	bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
+	bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
+	
+  if (! bootargIntelOFF) {
+		intelPatcherStart();
+  } else {
+		DBGLOG("cdf", "IntelPatcher is disabled by kernel flag -cdfinteloff");
+  }
+	
+  if (! bootargNVOFF) {
+		nvPatcherStart.init();
+  } else {
+		DBGLOG("cdf", "NVPatcher is disabled by kernel flag -cdfnvoff");
+  }
 }
 
 static const char *bootargOff[] = {
-  "-cdfoff",
+	"-cdfoff",
 };
 
 static const char *bootargDebug[] = {
-  "-cdfdbg"
+	"-cdfdbg"
 };
 
 static const char *bootargBeta[] = {
-  "-cdfbeta"
+	"-cdfbeta"
 };
 
 PluginConfiguration ADDPR(config) {
-  xStringify(PRODUCT_NAME),
-  parseModuleVersion(xStringify(MODULE_VERSION)),
-  LiluAPI::AllowNormal | LiluAPI::AllowInstallerRecovery,
-  bootargOff,
-  arrsize(bootargOff),
-  bootargDebug,
-  arrsize(bootargDebug),
-  bootargBeta,
-  arrsize(bootargBeta),
-  KernelVersion::Yosemite,
-  KernelVersion::HighSierra,
-  cdfStart
+	xStringify(PRODUCT_NAME),
+	parseModuleVersion(xStringify(MODULE_VERSION)),
+	LiluAPI::AllowNormal | LiluAPI::AllowInstallerRecovery,
+	bootargOff,
+	arrsize(bootargOff),
+	bootargDebug,
+	arrsize(bootargDebug),
+	bootargBeta,
+	arrsize(bootargBeta),
+	KernelVersion::Yosemite,
+	KernelVersion::HighSierra,
+  []() {
+    cdfStart();
+  }
 };
