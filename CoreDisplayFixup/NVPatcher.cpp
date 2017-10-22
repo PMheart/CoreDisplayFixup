@@ -11,44 +11,45 @@
 
 #include "NVPatcher.hpp"
 
-// macros for following arrays
-#define kGK100org 0
-#define kGK100web 1
-#define kGM100web 2
-#define kGP100web 3
+// NVDAGK100Hal.kext    - system built-in, for Kepler
+static const char *kextGKHal[] = { "/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal" }; // system embedded kext is always inside /S/L/E
+static const char *kextGKHalId = "com.apple.nvidia.driver.NVDAGK100Hal";
 
-// MARK:
-// NVDAGK100Hal    - system built-in, for Kepler
-// NVDAGK100HalWeb - from web driver, for Kepler
-// NVDAGM100HalWeb - from web driver, for Maxwell
-// NVDAGP100HalWeb - from web driver, for Pascal
-static const char * idList[] {
-	"com.apple.nvidia.driver.NVDAGK100Hal",
-	"com.nvidia.web.NVDAGK100HalWeb",
-	"com.nvidia.web.NVDAGM100HalWeb",
-	"com.nvidia.web.NVDAGP100HalWeb"
+// NVDAGK100HalWeb.kext - from web driver, for Kepler
+static const char *kextGKWeb[] = {
+  "/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
+  "/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb"
 };
+static const char *kextGKWebId = "com.nvidia.web.NVDAGK100HalWeb";
 
-static const char * binList[] {
-	"/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal",
-	"/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
-	"/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
-	"/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
+// NVDAGM100HalWeb.kext - from web driver, for Maxwell
+static const char *kextGMWeb[] = {
+  "/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
+  "/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb"
 };
+static const char *kextGMWebId = "com.nvidia.web.NVDAGM100HalWeb";
+
+// NVDAGP100HalWeb.kext - from web driver, for Pascal
+static const char *kextGPWeb[] = {
+  "/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb",
+  "/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
+};
+static const char *kextGPWebId = "com.nvidia.web.NVDAGP100HalWeb";
 
 static KernelPatcher::KextInfo kextList[] {
-	{ idList[kGK100org], & binList[kGK100org], 1, { true, true }, {}, KernelPatcher::KextInfo::Unloaded },
-	{ idList[kGK100web], & binList[kGK100web], 1, { true, true }, {}, KernelPatcher::KextInfo::Unloaded },
-	{ idList[kGM100web], & binList[kGM100web], 1, { true, true }, {}, KernelPatcher::KextInfo::Unloaded },
-	{ idList[kGP100web], & binList[kGP100web], 1, { true, true }, {}, KernelPatcher::KextInfo::Unloaded },
+	{ kextGKHalId, kextGKHal, arrsize(kextGKHal), {}, {}, KernelPatcher::KextInfo::Unloaded },
+  { kextGKWebId, kextGKWeb, arrsize(kextGKWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+  { kextGMWebId, kextGMWeb, arrsize(kextGMWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+  { kextGPWebId, kextGPWeb, arrsize(kextGPWeb), {}, {}, KernelPatcher::KextInfo::Unloaded }
 };
 
 static size_t kextListSize = arrsize(kextList);
 
-bool NVRESL::init() {
-	LiluAPI::Error error = lilu.onKextLoad(kextList, kextListSize, [](void * user, KernelPatcher & patcher, size_t index, mach_vm_address_t address, size_t size) {
-		NVRESL * nvresl = static_cast<NVRESL *>(user);
-		nvresl->processKext(patcher, index, address, size);
+bool NVPatcher::init()
+{
+	LiluAPI::Error error = lilu.onKextLoad(kextList, kextListSize, [](void *user, KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size) {
+		NVPatcher *nvpatcher = static_cast<NVPatcher *>(user);
+		nvpatcher->processKext(patcher, index, address, size);
 	}, this);
 	
 	if (error != LiluAPI::Error::NoError) {
@@ -59,7 +60,8 @@ bool NVRESL::init() {
 	return true;
 }
 
-void NVRESL::processKext(KernelPatcher & patcher, size_t index, mach_vm_address_t address, size_t size) {
+void NVPatcher::processKext(KernelPatcher &patcher, size_t index, mach_vm_address_t address, size_t size)
+{
 	// Patches
 	//
 	// for NVDAGK100Hal and NVDAGK100HalWeb
@@ -83,54 +85,54 @@ void NVRESL::processKext(KernelPatcher & patcher, size_t index, mach_vm_address_
 			if (kextList[i].loadIndex == index) {
 				DBGLOG("processKext", "current kext is %s progressState %d", kextList[i].id, progressState);
 				
-				// Patches for Kepler system built-in drivers
-				if (! (progressState & ProcessingState::NVGK100ReslPatched) && ! strcmp(kextList[i].id, idList[kGK100org])) {
-					DBGLOG("NVPatcher", "found %s", idList[kGK100org]);
+				// Patches for Kepler system built-in drivers (NVDAGK100Hal.kext)
+				if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, kextGKHalId)) {
+					DBGLOG("NVPatcher", "found %s", kextGKHalId);
 					// Ignore errors if the previous is undone
 					patcher.clearError();
 					KextPatch gk100_kext_patch {
-						{ & kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
+						{ &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
-					applyPatches(patcher, index, & gk100_kext_patch, 1);
+					applyPatches(patcher, index, &gk100_kext_patch, 1);
 					progressState |= ProcessingState::NVGK100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", idList[kGK100org]);
+					DBGLOG("NVPatcher", "patched %s", kextGKHalId);
 				}
 				
-				// Patches for Kepler web driver
-				if (! (progressState & ProcessingState::NVGK100WebReslPatched) && ! strcmp(kextList[i].id, idList[kGK100web])) {
-					DBGLOG("NVPatcher", "found %s", idList[kGK100web]);
+				// Patches for Kepler web driver (NVDAGK100HalWeb.kext)
+				if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, kextGKWebId)) {
+					DBGLOG("NVPatcher", "found %s", kextGKWebId);
 					KextPatch gk100web_kext_patch {
-						{ & kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
+						{ &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
-					applyPatches(patcher, index, & gk100web_kext_patch, 1);
+					applyPatches(patcher, index, &gk100web_kext_patch, 1);
 					progressState |= ProcessingState::NVGK100WebReslPatched;
-					DBGLOG("NVPatcher", "patched %s", idList[kGK100web]);
+					DBGLOG("NVPatcher", "patched %s", kextGKWebId);
 				}
 				
-				// Patches for Maxwell
-				if (! (progressState & ProcessingState::NVGM100ReslPatched) && ! strcmp(kextList[i].id, idList[kGM100web])) {
-					DBGLOG("NVPatcher", "found %s", idList[kGM100web]);
+				// Patches for Maxwell (NVDAGM100HalWeb.kext)
+				if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, kextGMWebId)) {
+					DBGLOG("NVPatcher", "found %s", kextGMWebId);
 					KextPatch gm100_kext_patch {
-						{ & kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
+						{ &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
-					applyPatches(patcher, index, & gm100_kext_patch, 1);
+					applyPatches(patcher, index, &gm100_kext_patch, 1);
 					progressState |= ProcessingState::NVGM100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", idList[kGM100web]);
+					DBGLOG("NVPatcher", "patched %s", kextGMWebId);
 				}
 			
-				// Patches for Pascal
-				if (! (progressState & ProcessingState::NVGP100ReslPatched) && ! strcmp(kextList[i].id, idList[kGP100web])) {
-					DBGLOG("NVPatcher", "found %s", idList[kGP100web]);
+				// Patches for Pascal (NVDAGP100HalWeb.kext)
+				if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, kextGPWebId)) {
+					DBGLOG("NVPatcher", "found %s", kextGPWebId);
 					KextPatch gp100_kext_patch {
-						{ & kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences need replacing here!
+						{ &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences need replacing here!
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
-					applyPatches(patcher, index, & gp100_kext_patch, 2); // 2 occurrences need replacing here!
+					applyPatches(patcher, index, &gp100_kext_patch, 2); // 2 occurrences need replacing here!
 					progressState |= ProcessingState::NVGP100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", idList[kGP100web]);
+					DBGLOG("NVPatcher", "patched %s", kextGPWebId);
 				}
 			}
 		}
@@ -139,14 +141,15 @@ void NVRESL::processKext(KernelPatcher & patcher, size_t index, mach_vm_address_
 	patcher.clearError();
 }
 
-void NVRESL::applyPatches(KernelPatcher & patcher, size_t index, const KextPatch * patches, size_t patchNum) {
+void NVPatcher::applyPatches(KernelPatcher &patcher, size_t index, const KextPatch *patches, size_t patchNum)
+{
 	DBGLOG("NVPatcher", "applying patches for %zu kext", index);
 	for (size_t p = 0; p < patchNum; p++) {
-		auto & patch = patches[p];
+		auto &patch = patches[p];
 		if (patch.patch.kext->loadIndex == index) {
 			if (patcher.compatibleKernel(patch.minKernel, patch.maxKernel)) {
 				DBGLOG("NVPatcher", "applying %zu patch for %zu kext", p, index);
-				patcher.applyLookupPatch(& patch.patch);
+				patcher.applyLookupPatch(&patch.patch);
 				// Do not really care for the errors for now
 				patcher.clearError();
 			}

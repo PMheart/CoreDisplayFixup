@@ -1,5 +1,9 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.3.2
+- NVPatcher 10.13 compatibility
+- Code style changed
+
 #### v1.3.1
 - Various typo fixed
 

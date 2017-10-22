@@ -10,7 +10,7 @@
 #include "IntelPatcher.hpp"
 
 // target frameworks
-static const char * binaryList[] {
+static const char *binaryList[] {
 	// 10.10.x and 10.11.x
 	"/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit",
 	// as of 10.12.x
@@ -18,7 +18,7 @@ static const char * binaryList[] {
 };
 
 // accompanied processes
-static const char * procList[] {
+static const char *procList[] {
 	// 10.10.x or 10.11.x
 	"/System/Library/Frameworks/CoreGraphics.framework/Versions/A/Resources/WindowServer",
 	// as of 10.12.x

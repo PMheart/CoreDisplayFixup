@@ -13,9 +13,10 @@
 #include "IntelPatcher.hpp"
 #include "NVPatcher.hpp"
 
-static NVRESL nvPatcherStart;
+static NVPatcher nvPatcherStart;
 
-static void intelPatcherStart() {
+static void intelPatcherStart()
+{
 	// apply corresopnding patches
 	if (getKernelVersion() == KernelVersion::Yosemite ||          // 10.10.x
       getKernelVersion() == KernelVersion::ElCapitan) {         // 10.11.x
@@ -26,19 +27,20 @@ static void intelPatcherStart() {
   }
 }
 
-static void cdfStart() {
+static void cdfStart()
+{
 	// check patcher disabling boot-args
 	char tmp[16];
 	bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
 	bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
 	
-  if (! bootargIntelOFF) {
+  if (!bootargIntelOFF) {
 		intelPatcherStart();
   } else {
 		DBGLOG("cdf", "IntelPatcher is disabled by kernel flag -cdfinteloff");
   }
 	
-  if (! bootargNVOFF) {
+  if (!bootargNVOFF) {
 		nvPatcherStart.init();
   } else {
 		DBGLOG("cdf", "NVPatcher is disabled by kernel flag -cdfnvoff");
