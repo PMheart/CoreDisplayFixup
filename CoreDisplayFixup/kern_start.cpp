@@ -18,13 +18,10 @@ static NVPatcher nvPatcherStart;
 static void intelPatcherStart()
 {
 	// apply corresopnding patches
-	if (getKernelVersion() == KernelVersion::Yosemite ||          // 10.10.x
-      getKernelVersion() == KernelVersion::ElCapitan) {         // 10.11.x
+	if (getKernelVersion() == KernelVersion::Yosemite || getKernelVersion() == KernelVersion::ElCapitan) // 10.10, 10.11
 		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-	} else if (getKernelVersion() == KernelVersion::Sierra ||     // 10.12.x
-             getKernelVersion() == KernelVersion::HighSierra) { // 10.13.x
+	else if (getKernelVersion() == KernelVersion::Sierra || getKernelVersion() == KernelVersion::HighSierra) // 10.12, 10.13
 		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
-  }
 }
 
 static void cdfStart()
@@ -34,17 +31,17 @@ static void cdfStart()
 	bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
 	bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
 	
-  if (!bootargIntelOFF) {
+	if (!bootargIntelOFF) {
 		intelPatcherStart();
-  } else {
+	} else {
 		DBGLOG("cdf", "IntelPatcher is disabled by kernel flag -cdfinteloff");
-  }
+	}
 	
-  if (!bootargNVOFF) {
+	if (!bootargNVOFF) {
 		nvPatcherStart.init();
-  } else {
+	} else {
 		DBGLOG("cdf", "NVPatcher is disabled by kernel flag -cdfnvoff");
-  }
+	}
 }
 
 static const char *bootargOff[] = {
@@ -71,7 +68,7 @@ PluginConfiguration ADDPR(config) {
 	arrsize(bootargBeta),
 	KernelVersion::Yosemite,
 	KernelVersion::HighSierra,
-  []() {
-    cdfStart();
-  }
+	[]() {
+		cdfStart();
+	}
 };

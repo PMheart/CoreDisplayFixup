@@ -17,30 +17,30 @@ static const char *kextGKHalId = "com.apple.nvidia.driver.NVDAGK100Hal";
 
 // NVDAGK100HalWeb.kext - from web driver, for Kepler
 static const char *kextGKWeb[] = {
-  "/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
-  "/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb"
+	"/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
+	"/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb"
 };
 static const char *kextGKWebId = "com.nvidia.web.NVDAGK100HalWeb";
 
 // NVDAGM100HalWeb.kext - from web driver, for Maxwell
 static const char *kextGMWeb[] = {
-  "/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
-  "/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb"
+	"/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
+	"/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb"
 };
 static const char *kextGMWebId = "com.nvidia.web.NVDAGM100HalWeb";
 
 // NVDAGP100HalWeb.kext - from web driver, for Pascal
 static const char *kextGPWeb[] = {
-  "/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb",
-  "/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
+	"/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb",
+	"/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
 };
 static const char *kextGPWebId = "com.nvidia.web.NVDAGP100HalWeb";
 
 static KernelPatcher::KextInfo kextList[] {
 	{ kextGKHalId, kextGKHal, arrsize(kextGKHal), {}, {}, KernelPatcher::KextInfo::Unloaded },
-  { kextGKWebId, kextGKWeb, arrsize(kextGKWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
-  { kextGMWebId, kextGMWeb, arrsize(kextGMWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
-  { kextGPWebId, kextGPWeb, arrsize(kextGPWeb), {}, {}, KernelPatcher::KextInfo::Unloaded }
+	{ kextGKWebId, kextGKWeb, arrsize(kextGKWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ kextGMWebId, kextGMWeb, arrsize(kextGMWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ kextGPWebId, kextGPWeb, arrsize(kextGPWeb), {}, {}, KernelPatcher::KextInfo::Unloaded }
 };
 
 static size_t kextListSize = arrsize(kextList);
