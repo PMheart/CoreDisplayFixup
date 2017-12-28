@@ -20,8 +20,11 @@ static void intelPatcherStart()
 	// apply corresopnding patches
 	if (getKernelVersion() == KernelVersion::Yosemite || getKernelVersion() == KernelVersion::ElCapitan) // 10.10, 10.11
 		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-	else if (getKernelVersion() == KernelVersion::Sierra || getKernelVersion() == KernelVersion::HighSierra) // 10.12, 10.13
-		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
+	else if (getKernelVersion() == KernelVersion::Sierra || (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() < 3)) // 10.12 - 10.13.1
+    lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
+  else if (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() >= 3) // 10.13.2+
+    lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModHS10132), ADDPR(binaryModSize));
+
 }
 
 static void cdfStart()

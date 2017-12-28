@@ -32,43 +32,110 @@ static const char *procList[] {
 //
 // Modified by PMheart (jmpq adress optimisations)
 //
-static const uint8_t findBuf[] {
+// Compatible with 10.10 - 10.13.1
+//
+static const uint8_t findBufOld[] {
 	0xB8, 0x01, 0x00, 0x00, 0x00,                   // mov  eax, 0x1
 	0xF6, 0xC1, 0x01,                               // test cl, 0x1
 	0x0F, 0x85                                      // jne  "somewhere"  ; Don't care for the exact offset!
 };
 
-static const uint8_t replBuf[] {
+static const uint8_t replBufOld[] {
 	0x48, 0x33, 0xC0,                               // xor eax, eax      ; 0
 	0x90, 0x90, 0x90, 0x90, 0x90, 0x90,             // nop (6x)          ; placeholders
 	0xE9                                            // jmp "somewhere"   ; Don't care for the exact offset!
 };
 
-static const size_t bufSize = arrsize(findBuf);
-
-
-static UserPatcher::BinaryModPatch genericPatch {
-	CPU_TYPE_X86_64,
-	findBuf,
-	replBuf,
-	bufSize,
-	0,           // skip  = 0 -> replace all occurrences
-	1,           // count = 1 -> 1 set of hex inside the target binaries
-	UserPatcher::FileSegment::SegmentTextText,
-	SectionYosEC // 10.10.x till 10.13.x (all universal)
+// New patch as of 10.13.2, by Floris497
+//
+// Reference:
+// https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/CoreDisplay-patcher.command#L121
+//
+// As of 10.13.2
+//
+static const uint8_t findBuf10132_0[] {
+	0xBB, 0xE6, 0x02, 0x00, 0xE0,                   // mov 0xe00002e6, ebx
+	0x85, 0xC0,                                     // test eax, eax
+	0x0F, 0x85                                      // jne  "somewhere"  ; Don't care for the exact offset!
 };
 
+static const uint8_t replBuf10132_0[] {
+	0xBB, 0xE6, 0x02, 0x00, 0xE0,                   // mov 0xe00002e6, ebx
+	0x31, 0xC0,                                     // xor eax, eax
+	0x0F, 0x85                                      // jne  "somewhere"  ; Don't care for the exact offset!
+};
+
+static const uint8_t findBuf10132_1[] {
+	0xE8, 0x65, 0x00, 0x00, 0x00,                   // call "something"
+	0x85, 0xC0,                                     // test eax, eax
+	0xBB, 0xE6
+};
+
+static const uint8_t replBuf10132_1[] {
+	0xE8, 0x65, 0x00, 0x00, 0x00,                   // call "something"
+	0x31, 0xC0,                                     // test eax, eax
+	0xBB, 0xE6
+};
+
+// old
+static const size_t bufSizeOld  = arrsize(findBufOld);
+// new
+static const size_t bufSizeNew  = arrsize(findBuf10132_0);
+static const size_t bufSizeNew1 = arrsize(findBuf10132_1);
+
+// 10.10 - 10.13.1
+static UserPatcher::BinaryModPatch patchOld {
+	CPU_TYPE_X86_64,
+	findBufOld,
+	replBufOld,
+	bufSizeOld,
+	0,              // skip  = 0 -> replace all occurrences
+	1,              // count = 1 -> 1 set of hex inside the target binaries
+	UserPatcher::FileSegment::SegmentTextText,
+	SectionYosEC    // 10.10.x till 10.13.x (all universal)
+};
+
+// 10.13.2+ (2 patches)
+// 0 of 1
+static UserPatcher::BinaryModPatch patchNew {
+	CPU_TYPE_X86_64,
+	findBuf10132_0,
+	replBuf10132_0,
+	bufSizeNew,
+	0,              // skip  = 0 -> replace all occurrences
+	1,              // count = 1 -> 1 set of hex inside the target binaries
+	UserPatcher::FileSegment::SegmentTextText,
+	SectionHS10132	// as of 10.13.2
+};
+// 1 of 1
+static UserPatcher::BinaryModPatch patchNew1 {
+	CPU_TYPE_X86_64,
+	findBuf10132_1,
+	replBuf10132_1,
+	bufSizeNew1,
+	0,              // skip  = 0 -> replace all occurrences
+	1,              // count = 1 -> 1 set of hex inside the target binaries
+	UserPatcher::FileSegment::SegmentTextText,
+	SectionHS10132  // as of 10.13.2
+};
+
+// 10.10 and 10.11
 UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {
 	// 10.10.x and 10.11.x
-	{ binaryList[0], &genericPatch, 1 }
+	{ binaryList[0], &patchOld, 1 }
 };
-
+// 10.12 to 10.13.1
 UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] {
 	// 10.12.x and 10.13.x
-	{ binaryList[1], &genericPatch, 1 }
+	{ binaryList[1], &patchOld, 1 }
+};
+// 10.13.2+
+UserPatcher::BinaryModInfo ADDPR(binaryModHS10132)[] {
+	{ binaryList[1], &patchNew,  1 },
+	{ binaryList[1], &patchNew1, 1 }
 };
 
-const size_t ADDPR(binaryModSize) = 1;
+const size_t ADDPR(binaryModSize) = 3;
 
 
 UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
@@ -81,4 +148,4 @@ UserPatcher::ProcInfo ADDPR(procInfoSieHS)[] {
 	{ procList[1], static_cast<uint32_t>(strlen(procList[1])), SectionSieHS }
 };
 
-const size_t ADDPR(procInfoSize) = 1;
+const size_t ADDPR(procInfoSize) = 2;
