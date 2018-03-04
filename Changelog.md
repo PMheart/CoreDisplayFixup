@@ -1,5 +1,14 @@
 CoreDisplayFixup Changelog
 ============================
+#### v1.3.5
+Imported new patches of NVPatcher from aerror2's fork
+
+#### v1.3.4
+- Revert back to old IntelPatcher
+
+#### v1.3.3
+- Deprecated Version
+
 #### v1.3.2
 - NVPatcher 10.13 compatibility
 - Code style changed
