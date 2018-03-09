@@ -12,35 +12,39 @@
 #include "NVPatcher.hpp"
 
 // NVDAGK100Hal.kext    - system built-in, for Kepler
-static const char *kextGKHal[] = { "/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal" }; // system embedded kext is always inside /S/L/E
-static const char *kextGKHalId = "com.apple.nvidia.driver.NVDAGK100Hal";
+// Note: system embedded kext is always inside /S/L/E
+static const char *kextGKHal[] = { "/System/Library/Extensions/NVDAGK100Hal.kext/Contents/MacOS/NVDAGK100Hal" };
 
 // NVDAGK100HalWeb.kext - from web driver, for Kepler
 static const char *kextGKWeb[] = {
 	"/System/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb",
 	"/Library/Extensions/NVDAGK100HalWeb.kext/Contents/MacOS/NVDAGK100HalWeb"
 };
-static const char *kextGKWebId = "com.nvidia.web.NVDAGK100HalWeb";
 
 // NVDAGM100HalWeb.kext - from web driver, for Maxwell
 static const char *kextGMWeb[] = {
 	"/System/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb",
 	"/Library/Extensions/NVDAGM100HalWeb.kext/Contents/MacOS/NVDAGM100HalWeb"
 };
-static const char *kextGMWebId = "com.nvidia.web.NVDAGM100HalWeb";
 
 // NVDAGP100HalWeb.kext - from web driver, for Pascal
 static const char *kextGPWeb[] = {
 	"/System/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb",
 	"/Library/Extensions/NVDAGP100HalWeb.kext/Contents/MacOS/NVDAGP100HalWeb"
 };
-static const char *kextGPWebId = "com.nvidia.web.NVDAGP100HalWeb";
 
 static KernelPatcher::KextInfo kextList[] {
-	{ kextGKHalId, kextGKHal, arrsize(kextGKHal), {}, {}, KernelPatcher::KextInfo::Unloaded },
-	{ kextGKWebId, kextGKWeb, arrsize(kextGKWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
-	{ kextGMWebId, kextGMWeb, arrsize(kextGMWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
-	{ kextGPWebId, kextGPWeb, arrsize(kextGPWeb), {}, {}, KernelPatcher::KextInfo::Unloaded }
+	{ "com.apple.nvidia.driver.NVDAGK100Hal", kextGKHal, arrsize(kextGKHal), {}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ "com.nvidia.web.NVDAGK100HalWeb", kextGKWeb, arrsize(kextGKWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ "com.nvidia.web.NVDAGM100HalWeb", kextGMWeb, arrsize(kextGMWeb), {}, {}, KernelPatcher::KextInfo::Unloaded },
+	{ "com.nvidia.web.NVDAGP100HalWeb", kextGPWeb, arrsize(kextGPWeb), {}, {}, KernelPatcher::KextInfo::Unloaded }
+};
+
+enum : size_t {
+	KextGK100HalSys,
+	KextGK100HalWeb,
+	KextGM100HalWeb,
+	KextGP100HalWeb
 };
 
 static size_t kextListSize = arrsize(kextList);
@@ -86,8 +90,8 @@ void NVPatcher::processKext(KernelPatcher &patcher, size_t index, mach_vm_addres
 				DBGLOG("processKext", "current kext is %s progressState %d", kextList[i].id, progressState);
 				
 				// Patches for Kepler system built-in drivers (NVDAGK100Hal.kext)
-				if (!(progressState & ProcessingState::NVGK100ReslPatched) && !strcmp(kextList[i].id, kextGKHalId)) {
-					DBGLOG("NVPatcher", "found %s", kextGKHalId);
+				if (!(progressState & ProcessingState::NVGK100ReslPatched) && i == KextGK100HalSys) {
+					DBGLOG("NVPatcher", "found %s", kextList[i].id);
 					// Ignore errors if the previous is undone
 					patcher.clearError();
 					KextPatch gk100_kext_patch {
@@ -96,43 +100,44 @@ void NVPatcher::processKext(KernelPatcher &patcher, size_t index, mach_vm_addres
 					};
 					applyPatches(patcher, index, &gk100_kext_patch, 1);
 					progressState |= ProcessingState::NVGK100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", kextGKHalId);
+					DBGLOG("NVPatcher", "patched %s", kextList[i].id);
 				}
 				
 				// Patches for Kepler web driver (NVDAGK100HalWeb.kext)
-				if (!(progressState & ProcessingState::NVGK100WebReslPatched) && !strcmp(kextList[i].id, kextGKWebId)) {
-					DBGLOG("NVPatcher", "found %s", kextGKWebId);
+				if (!(progressState & ProcessingState::NVGK100WebReslPatched) && i == KextGK100HalWeb) {
+					DBGLOG("NVPatcher", "found %s", kextList[i].id);
 					KextPatch gk100web_kext_patch {
 						{ &kextList[i], gk100_find, gk100_repl, sizeof(gk100_find), 1 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
 					applyPatches(patcher, index, &gk100web_kext_patch, 1);
 					progressState |= ProcessingState::NVGK100WebReslPatched;
-					DBGLOG("NVPatcher", "patched %s", kextGKWebId);
+					DBGLOG("NVPatcher", "patched %s", kextList[i].id);
 				}
 				
 				// Patches for Maxwell (NVDAGM100HalWeb.kext)
-				if (!(progressState & ProcessingState::NVGM100ReslPatched) && !strcmp(kextList[i].id, kextGMWebId)) {
-					DBGLOG("NVPatcher", "found %s", kextGMWebId);
+				if (!(progressState & ProcessingState::NVGM100ReslPatched) && i == KextGM100HalWeb) {
+					DBGLOG("NVPatcher", "found %s", kextList[i].id);
 					KextPatch gm100_kext_patch {
 						{ &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 1 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
 					applyPatches(patcher, index, &gm100_kext_patch, 1);
 					progressState |= ProcessingState::NVGM100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", kextGMWebId);
+					DBGLOG("NVPatcher", "patched %s", kextList[i].id);
 				}
 			
 				// Patches for Pascal (NVDAGP100HalWeb.kext)
-				if (!(progressState & ProcessingState::NVGP100ReslPatched) && !strcmp(kextList[i].id, kextGPWebId)) {
-					DBGLOG("NVPatcher", "found %s", kextGPWebId);
+				if (!(progressState & ProcessingState::NVGP100ReslPatched) && i == KextGP100HalWeb) {
+					DBGLOG("NVPatcher", "found %s", kextList[i].id);
 					KextPatch gp100_kext_patch {
-						{ &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 }, // 2 occurrences need replacing here!
+						 // 2 occurrences need replacing here!
+						{ &kextList[i], gmp100_find, gmp100_repl, sizeof(gmp100_find), 2 },
 						KernelVersion::MountainLion, KernelVersion::HighSierra
 					};
-					applyPatches(patcher, index, &gp100_kext_patch, 2); // 2 occurrences need replacing here!
+					applyPatches(patcher, index, &gp100_kext_patch, 2);
 					progressState |= ProcessingState::NVGP100ReslPatched;
-					DBGLOG("NVPatcher", "patched %s", kextGPWebId);
+					DBGLOG("NVPatcher", "patched %s", kextList[i].id);
 				}
 			}
 		}
