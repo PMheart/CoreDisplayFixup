@@ -6,6 +6,7 @@ Tools/.DS_Store
 
 CoreDisplayFixup.xcodeproj/xcuserdata
 CoreDisplayFixup.xcodeproj/project.xcworkspace/xcuserdata
+CoreDisplayFixup.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
 Lilu.kext/*
 

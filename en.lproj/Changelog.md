@@ -1,5 +1,9 @@
 CoreDisplayFixup Changelog
 ============================
+
+#### v1.3.6
+New patch for 10.13.4+, thanks to al3xtjames
+
 #### v1.3.5
 Imported new patches of NVPatcher from aerror2's fork
 
