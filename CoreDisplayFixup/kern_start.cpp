@@ -19,9 +19,11 @@ static void intelPatcherStart()
 {
 	// apply corresopnding patches
 	if (getKernelVersion() == KernelVersion::Yosemite || getKernelVersion() == KernelVersion::ElCapitan) // 10.10, 10.11
-		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModSize));
-	else if (getKernelVersion() == KernelVersion::Sierra || getKernelVersion() == KernelVersion::HighSierra) // 10.12, 10.13
-		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModSize));
+		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModOldSize));
+	else if (getKernelVersion() == KernelVersion::Sierra || (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() < 5)) // 10.12, 10.13.0-10.13.3
+		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModOldSize));
+	else if (getKernelVersion() == KernelVersion::Sierra || (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() >= 5)) // 10.13.4+
+		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModHS1034), ADDPR(binaryModHS1034Size));
 }
 
 static void cdfStart()
@@ -30,13 +32,13 @@ static void cdfStart()
 	char tmp[16];
 	bool bootargIntelOFF = PE_parse_boot_argn("-cdfinteloff", tmp, sizeof(tmp));
 	bool bootargNVOFF    = PE_parse_boot_argn("-cdfnvoff", tmp, sizeof(tmp));
-	
+
 	if (!bootargIntelOFF) {
 		intelPatcherStart();
 	} else {
 		DBGLOG("cdf", "IntelPatcher is disabled by kernel flag -cdfinteloff");
 	}
-	
+
 	if (!bootargNVOFF) {
 		nvPatcherStart.init();
 	} else {
