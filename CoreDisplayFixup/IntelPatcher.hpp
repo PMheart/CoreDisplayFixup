@@ -15,7 +15,10 @@
 // binary
 extern UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[];
 extern UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[];
-extern const size_t ADDPR(binaryModSize);
+extern UserPatcher::BinaryModInfo ADDPR(binaryModHS1034)[];
+extern const size_t ADDPR(binaryModOldSize);
+extern const size_t ADDPR(binaryModHS1034Size);
+
 
 // process
 extern UserPatcher::ProcInfo ADDPR(procInfoYosEC)[];
@@ -25,7 +28,8 @@ extern const size_t ADDPR(procInfoSize);
 
 enum : uint32_t {
 	SectionYosEC   = 1,
-	SectionSieHS   = 2
+	SectionSieHS   = 2,
+	SectionHS1034  = 4
 };
 
 #endif /* IntelPatcher_hpp */

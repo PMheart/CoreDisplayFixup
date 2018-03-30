@@ -32,43 +32,96 @@ static const char *procList[] {
 //
 // Modified by PMheart (jmpq adress optimisations)
 //
-static const uint8_t findBuf[] {
+static const uint8_t findBufOld[] {
 	0xB8, 0x01, 0x00, 0x00, 0x00,                   // mov  eax, 0x1
 	0xF6, 0xC1, 0x01,                               // test cl, 0x1
 	0x0F, 0x85                                      // jne  "somewhere"  ; Don't care for the exact offset!
 };
 
-static const uint8_t replBuf[] {
+static const uint8_t replBufOld[] {
 	0x48, 0x33, 0xC0,                               // xor eax, eax      ; 0
 	0x90, 0x90, 0x90, 0x90, 0x90, 0x90,             // nop (6x)          ; placeholders
 	0xE9                                            // jmp "somewhere"   ; Don't care for the exact offset!
 };
 
-static const size_t bufSize = arrsize(findBuf);
+static const size_t bufSizeOld = arrsize(findBufOld);
 
+// 10.13.4+ (2 patches)
+static const uint8_t findBuf1034_0[] {
+	0xBB, 0xE6, 0x02, 0x00, 0xE0,                   // mov ebx, kIOReturnUnsupportedMode
+	0x85, 0xC0                                      // test eax, eax
+};
 
-static UserPatcher::BinaryModPatch genericPatch {
+static const uint8_t replBuf1034_0[] {
+	0xBB, 0xE6, 0x02, 0x00, 0xE0,                   // mov ebx, kIOReturnUnsupportedMode
+	0x31, 0xC0                                      // xor eax, eax
+};
+
+static const size_t bufSize1034_0 = arrsize(findBuf1034_0);
+
+static const uint8_t findBuf1034_1[] {
+	0x85, 0xC0,                                     // test eax, eax
+	0xBB, 0xE6, 0x02, 0x00, 0xE0                    // mov ebx, kIOReturnUnsupportedMode
+};
+
+static const uint8_t replBuf1034_1[] {
+	0x31, 0xC0,                                     // xor eax, eax
+	0xBB, 0xE6, 0x02, 0x00, 0xE0                    // mov ebx, kIOReturnUnsupportedMode
+};
+
+static const size_t bufSize1034_1 = arrsize(findBuf1034_1);
+
+static UserPatcher::BinaryModPatch patchOld {
 	CPU_TYPE_X86_64,
-	findBuf,
-	replBuf,
-	bufSize,
-	0,           // skip  = 0 -> replace all occurrences
-	1,           // count = 1 -> 1 set of hex inside the target binaries
+	findBufOld,
+	replBufOld,
+	bufSizeOld,
+	0,            // skip  = 0 -> replace all occurrences
+	1,            // count = 1 -> 1 set of hex inside the target binaries
 	UserPatcher::FileSegment::SegmentTextText,
-	SectionYosEC // 10.10.x till 10.13.x (all universal)
+	SectionHS1034 // 10.10.x till 10.13.3 (all universal)
+};
+
+static UserPatcher::BinaryModPatch patch1034_0 {
+	CPU_TYPE_X86_64,
+	findBuf1034_0,
+	replBuf1034_0,
+	bufSize1034_0,
+	0,            // skip  = 0 -> replace all occurrences
+	1,            // count = 1 -> 1 set of hex inside the target binaries
+	UserPatcher::FileSegment::SegmentTextText,
+	SectionHS1034 // 10.13.4+
+};
+
+static UserPatcher::BinaryModPatch patch1034_1 {
+	CPU_TYPE_X86_64,
+	findBuf1034_1,
+	replBuf1034_1,
+	bufSize1034_1,
+	0,            // skip  = 0 -> replace all occurrences
+	1,            // count = 1 -> 1 set of hex inside the target binaries
+	UserPatcher::FileSegment::SegmentTextText,
+	SectionHS1034 // 10.13.4+
 };
 
 UserPatcher::BinaryModInfo ADDPR(binaryModYosEC)[] {
 	// 10.10.x and 10.11.x
-	{ binaryList[0], &genericPatch, 1 }
+	{ binaryList[0], &patchOld, 1 }
 };
 
 UserPatcher::BinaryModInfo ADDPR(binaryModSieHS)[] {
-	// 10.12.x and 10.13.x
-	{ binaryList[1], &genericPatch, 1 }
+	// 10.12.x and 10.13.0-10.13.3
+	{ binaryList[1], &patchOld, 1 }
 };
 
-const size_t ADDPR(binaryModSize) = 1;
+UserPatcher::BinaryModInfo ADDPR(binaryModHS1034)[] {
+	// 10.13.4+
+	{ binaryList[1], &patch1034_0, 1 },
+	{ binaryList[1], &patch1034_1, 1 }
+};
+
+const size_t ADDPR(binaryModOldSize) = 1;
+const size_t ADDPR(binaryModHS1034Size) = 2;
 
 
 UserPatcher::ProcInfo ADDPR(procInfoYosEC)[] {
