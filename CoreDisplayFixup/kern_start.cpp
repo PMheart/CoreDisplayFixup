@@ -22,7 +22,7 @@ static void intelPatcherStart()
 		lilu.onProcLoad(ADDPR(procInfoYosEC), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModYosEC), ADDPR(binaryModOldSize));
 	else if (getKernelVersion() == KernelVersion::Sierra || (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() < 5)) // 10.12, 10.13.0-10.13.3
 		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModSieHS), ADDPR(binaryModOldSize));
-	else if (getKernelVersion() == KernelVersion::Sierra || (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() >= 5)) // 10.13.4+
+	else if (getKernelVersion() == KernelVersion::HighSierra && getKernelMinorVersion() >= 5) // 10.13.4+
 		lilu.onProcLoad(ADDPR(procInfoSieHS), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryModHS1034), ADDPR(binaryModHS1034Size));
 }
 
