@@ -1,11 +1,14 @@
 CoreDisplayFixup Changelog
 ============================
 
+#### v1.3.7
+- Revised patch for 10.13.4/initial patch for 10.14
+
 #### v1.3.6
-New patch for 10.13.4+, thanks to al3xtjames
+- New patch for 10.13.4+, thanks to al3xtjames
 
 #### v1.3.5
-Imported new patches of NVPatcher from aerror2's fork
+- Imported new patches of NVPatcher from aerror2's fork
 
 #### v1.3.4
 - Revert back to old IntelPatcher
