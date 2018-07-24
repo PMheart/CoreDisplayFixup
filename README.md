@@ -4,6 +4,8 @@ CoreDisplayFixup
 A [Lilu](https://github.com/vit9696/Lilu) plug-in which patches system essentials dynamically to enable 4K or greater resolutions output on certain graphics (See [here](https://github.com/Floris497/mac-pixel-clock-patch-V2/blob/master/README.md) for more details).
 
 #### Notes
+**[WhateverGreen](https://github.com/acidanthera/WhateverGreen) v1.2.0+ incorporates the same CoreDisplay patches. Avoid using CoreDisplayFixup with it.**
+
 This repository should be compiled with [Lilu](https://github.com/vit9696/Lilu) ***v1.2.0*** and greater, otherwise the compilation will be failed!
 
 Note: ***Debug version of Lilu.kext should be put in the same folder as CoreDisplayFixup! And they should also be used together!***
@@ -19,7 +21,7 @@ See [Instructions](https://github.com/PMheart/CoreDisplayFixup/blob/master/Instr
 - [GitHub Issues](https://github.com/PMheart/CoreDisplayFixup/issues)
 
 #### Credits
-- [Apple](https://www.apple.com) for macOS  
+- [Apple](https://www.apple.com) for macOS
 - [vit9696](https://github.com/vit9696) for [Lilu.kext](https://github.com/vit9696/Lilu) and some ideas
 - [Floris497](https://github.com/Floris497) for the [patches](https://github.com/Floris497/mac-pixel-clock-patch-v2)
 - [gujiangjiang](https://github.com/gujiangjiang) and [wmchris](https://github.com/wmchris) for major tests
